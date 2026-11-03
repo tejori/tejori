@@ -376,7 +376,7 @@ function buildRiver(ctx,out){
   const lfo=(f,dp,t)=>{const o=ctx.createOscillator(),g=gn(dp);o.frequency.value=f;o.connect(g);g.connect(t);o.start()};
   lfo(.09,.13,bg.gain);lfo(.21,.02,g1.gain);lfo(.33,.008,g2.gain);lfo(.05,230,lp.frequency);lfo(.17,450,b1.frequency)
 }
-const HERO_V=.132,LOW_V=.066;let farDown=false;const vol=()=>farDown?LOW_V:HERO_V;
+const HERO_V=.132,LOW_V=.04;let farDown=false;const vol=()=>farDown?LOW_V:HERO_V;
 let AC=null,MG=null,dripOn=false,soundOn=false,echo=null;
 function drip(){
   if(!soundOn||!AC)return;
