@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Tejori – Tilak Set (preview)</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTPXVQ0M4K"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-DTPXVQ0M4K");
+document.addEventListener("click",e=>{const a=e.target.closest("a");if(a&&/wa\.me/.test(a.href))gtag("event","whatsapp_click",{page:"v2"})});</script>
+<style>
+:root{--rose:#e9c3cc;--cream:#fbf3ee;--rust:#9a4a2e;--ink:#3a211b}
+*{box-sizing:border-box;margin:0}
+html,body{overflow-x:clip;background:var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif}
+.top{position:fixed;top:0;left:0;right:0;z-index:5;padding:16px 20px;display:flex;justify-content:space-between;font-size:15px;letter-spacing:.2em;text-transform:uppercase}
+.top small{letter-spacing:.1em;opacity:.6;font-size:11px;align-self:center}
+#track{height:520vh;position:relative}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#f6dde2 0,#efd0d6 45%,#e3b7c1 100%)}
+.im{position:absolute;left:50%;top:50%;will-change:transform,opacity;filter:drop-shadow(0 22px 26px rgba(90,40,50,.28));pointer-events:none;user-select:none}
+.cap{position:absolute;left:0;right:0;bottom:11vh;text-align:center;padding:0 24px;will-change:opacity,transform}
+.cap h2{font-size:clamp(26px,6.5vw,52px);font-weight:400;font-style:italic}
+.cap p{margin-top:6px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+#card{position:absolute;left:50%;bottom:7vh;width:min(86vw,340px);transform:translateX(-50%);background:#fffaf6;border-radius:18px;padding:18px 20px;text-align:center;box-shadow:0 18px 40px rgba(90,40,50,.25);opacity:0;will-change:opacity,transform}
+#card b{font-size:20px;font-weight:400}#card div{margin:4px 0 12px;color:var(--rust);font-size:17px}
+#card a{display:block;background:#25a244;color:#fff;text-decoration:none;padding:13px;border-radius:30px;font-family:system-ui,sans-serif;font-size:15px}
+#card span{display:block;margin-top:8px;font-size:12px;opacity:.6;font-family:system-ui,sans-serif}
+.hint{position:absolute;top:70px;left:0;right:0;text-align:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;font-family:system-ui,sans-serif}
+.bar{position:absolute;left:0;top:0;height:3px;background:var(--rust);width:0;z-index:6}
+.end{padding:60px 24px;text-align:center;font-size:14px;opacity:.7}.end a{color:var(--rust)}
+</style></head><body>
+<div class="top"><span>Tejori</span><small>Preview · v2</small></div>
+<div id="track"><div id="stage"><div class="bar" id="bar"></div><div class="hint" id="hint">Scroll ↓</div>
+<img class="im" id="i1" src="closed_front.webp" alt="Pink velvet box">
+<img class="im" id="i2" src="open_satin.webp" alt="Open box with satin lining">
+<img class="im" id="i3" src="pieces_b.webp" alt="Silver feather and leaf pieces">
+<img class="im" id="i4" src="closed_latch.webp" alt="Closed box with gold latch">
+<div class="cap" id="c1"><h2>Wrapped in velvet</h2><p>Tilak Set · gift box</p></div>
+<div class="cap" id="c2"><h2>Open it up</h2><p>Satin-lined, made for silver</p></div>
+<div class="cap" id="c3"><h2>Two silver pieces</h2><p>German silver · set with stones</p></div>
+<div class="cap" id="c4"><h2>Latched, ready to gift</h2><p>Silver · Velvet box packaging</p></div>
+<div id="card"><b>Tilak Set</b><div>₹450</div><a id="wa" href="https://wa.me/919518635419?text=Hi%20Tejori%2C%20I%27d%20like%20to%20order%20the%20Tilak%20Set%20(%E2%82%B9450)">Order on WhatsApp</a><span>Silver · Velvet box packaging</span></div>
+</div></div>
+<div class="end">Preview of an animated product story. <a href="../">Back to the main site</a></div>
+<script>
+const $=id=>document.getElementById(id),tr=$("track"),st=$("stage");
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),ss=x=>{x=clamp(x);return x*x*(3-2*x)};
+const seg=(p,a,b)=>clamp((p-a)/(b-a));
+// opacity window with fade in over [a,a+f] and out over [b-f,b]
+const win=(p,a,b,f=.05)=>Math.min(ss(seg(p,a,a+f)),1-ss(seg(p,b-f,b)));
+function size(el,k){const w=innerWidth,h=innerHeight,r=el.naturalWidth/el.naturalHeight||1;let H=Math.min(h*k,w*k*.95/r);el.style.height=H+"px";el.style.width=H*r+"px"}
+function put(el,x,y,s,rot,o){el.style.opacity=o;el.style.transform=`translate(-50%,-50%) translate(${x}px,${y}px) scale(${s}) rotate(${rot}deg)`}
+function frame(){
+ const p=clamp(scrollY/(tr.offsetHeight-innerHeight)),h=innerHeight,w=innerWidth;
+ $("bar").style.width=p*100+"%";$("hint").style.opacity=.55*(1-seg(p,0,.04));
+ // 1 closed box front: floats in, then leaves
+ put($("i1"),0,-h*.04-seg(p,.15,.25)*h*.1,1+.08*seg(p,0,.2)-.1*seg(p,.15,.25),-4*seg(p,.15,.25),win(p,-1,.25,.06));
+ // 2 open empty box
+ put($("i2"),0,-h*.05,.94+.08*seg(p,.22,.5),0,win(p,.2,.5,.07)*1);
+ // 3 pieces drop from top toward the open box
+ const d=ss(seg(p,.4,.62));
+ put($("i3"),w*.04*(1-d),-h*.6*(1-d)+h*.02,.62+.1*d,-12*(1-d)+6*d,win(p,.38,.66,.05));
+ // 4 closed box with latch
+ put($("i4"),0,-h*.06+(1-ss(seg(p,.64,.76)))*h*.1,.9+.1*ss(seg(p,.64,.9)),0,ss(seg(p,.64,.74))*(1-ss(seg(p,.93,.99))*0));
+ // captions
+ [[-1,.2],[.22,.45],[.45,.64],[.66,.86]].forEach(([a,b],i)=>{const c=$("c"+(i+1));const o=win(p,a,b,.05);c.style.opacity=o;c.style.transform=`translateY(${(1-o)*14}px)`});
+ const k=ss(seg(p,.86,.94));$("card").style.opacity=k;$("card").style.transform=`translateX(-50%) translateY(${(1-k)*30}px)`;
+ $("card").style.pointerEvents=k>.5?"auto":"none";
+ $("c4").style.bottom=k>0?(11+30*k)+"vh":"11vh";
+}
+const imgs=[...document.querySelectorAll(".im")];let ld=0;
+function init(){imgs.forEach(i=>{size(i,{i1:.62,i2:.7,i3:.5,i4:.6}[i.id]);});frame()}
+imgs.forEach(i=>i.complete?ld++:i.addEventListener("load",()=>{ld++;init()}));
+addEventListener("resize",init);addEventListener("scroll",()=>requestAnimationFrame(frame),{passive:true});init();
+</script></body></html>
