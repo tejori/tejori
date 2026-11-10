@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Tejori – Pack your own gift box (preview)</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTPXVQ0M4K"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-DTPXVQ0M4K");</script>
+<style>
+:root{--cream:#f6e9df;--gold:#d9b36c;--bg:#24130f;--rose:#c96a83;--rx:60deg;--rz:-24deg}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--cream);font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+button,input{font:inherit;color:inherit}
+.serif{font-family:Georgia,'Times New Roman',serif}
+#app{height:100vh;height:100dvh;display:flex;flex-direction:column;max-width:1100px;margin:0 auto}
+.top{flex:none;padding:14px 18px 6px;display:flex;justify-content:space-between;align-items:baseline}
+.top a{color:inherit;text-decoration:none;font-family:Georgia,serif;font-size:15px;letter-spacing:.24em;text-transform:uppercase}
+.top small{letter-spacing:.12em;opacity:.5;font-size:10px;text-transform:uppercase}
+#stage{flex:1;min-height:230px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#5a3024 0,#38201a 45%,rgba(36,19,15,0) 78%)}
+#stage h1{position:absolute;left:0;right:0;top:2px;text-align:center;font:italic 400 clamp(20px,5.4vw,30px) Georgia,serif;transition:opacity .4s;z-index:2;pointer-events:none}
+#stage .sub{position:absolute;left:0;right:0;top:clamp(30px,8vw,42px);text-align:center;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);transition:opacity .4s;z-index:2;pointer-events:none}
+#scene{position:absolute;inset:0;perspective:1600px;perspective-origin:50% 40%}
+#rig,#rig *{transform-style:preserve-3d}
+#rig{position:absolute;left:50%;top:62%;width:0;height:0;transform:rotateX(var(--rx)) rotateZ(var(--rz));transition:transform 1.3s cubic-bezier(.3,.7,.2,1)}
+#rig div{position:absolute}
+.box{left:-50em;top:-52em;width:100em;height:104em}
+.vel{background:url(velvet.webp) center/cover}
+.gsh{left:-70em;top:-66em;width:140em;height:140em;background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(0,0,0,0) 72%);transform:translateZ(-.4em)}
+.floor{inset:0;background:#a14a61}
+.wf,.wb{left:0;width:100em;transform-origin:50% 0;transform:rotateX(90deg)}
+.wl,.wr{top:0;height:104em;transform-origin:0 50%;transform:rotateY(-90deg)}
+.wf{top:104em}.wb{top:0;filter:brightness(.66)}.wl{left:0;filter:brightness(.8)}.wr{left:100em;filter:brightness(.7)}
+.base .wf,.base .wb{height:27em}.base .wl,.base .wr{width:27em}
+.lidg .wf,.lidg .wb{height:12em}.lidg .wl,.lidg .wr{width:12em}
+.satin{left:2.4em;top:2.4em;width:95.2em;height:99.2em;background:url(satin.webp) center/100% 100%;transform:translateZ(5em);box-shadow:inset 0 0 14em rgba(70,10,30,.75)}
+.rim{inset:0;border:2.6em solid var(--rose);transform:translateZ(27em);box-shadow:inset 0 0 1.2em rgba(70,10,30,.55)}
+.lidg{left:0;top:0;width:100em;height:104em;transform:translateZ(190em);opacity:0;transition:transform 1s cubic-bezier(.5,0,.25,1),opacity .35s}
+.lidtop{inset:0;background:url(lid.webp) center/100% 100%;transform:translateZ(12em)}
+.foil{right:7em;bottom:6em;font:400 6.4em Georgia,serif;letter-spacing:.3em;text-transform:uppercase;background:linear-gradient(100deg,#b8862f,#fbe7a8 45%,#c9993f 60%,#f3d58a);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
+.rb{background:linear-gradient(90deg,#a87624,#f3d58a 22%,#d2a044 50%,#fbe7a8 72%,#a87624);opacity:0;transition:opacity .25s,transform .55s cubic-bezier(.3,.8,.3,1);box-shadow:0 0 .6em rgba(60,20,0,.45)}
+.rb.v{background:linear-gradient(180deg,#a87624,#f3d58a 22%,#d2a044 50%,#fbe7a8 72%,#a87624)}
+.lidtop .rb.h{left:0;top:46em;width:100em;height:12em;transform:translateZ(.2em) scaleX(0)}
+.lidtop .rb.w{left:44em;top:0;width:12em;height:104em;transform:translateZ(.2em) scaleY(0)}
+.wf .rb,.wb .rb{left:44em;top:0;width:12em;height:100%;transform:translateZ(-.2em) scaleY(0)}
+.wl .rb,.wr .rb{top:46em;left:0;width:100%;height:12em;transform:translateZ(.2em) scaleX(0)}
+.wr .rb,.wb .rb{display:none}
+.tied .rb{opacity:1}
+.tied .lidtop .rb.h{transform:translateZ(.2em) scaleX(1)}.tied .lidtop .rb.w{transform:translateZ(.2em) scaleY(1);transition-delay:.12s}
+.tied .wf .rb{transform:translateZ(-.2em) scaleY(1);transition-delay:.3s}.tied .wl .rb{transform:translateZ(.2em) scaleX(1);transition-delay:.3s}
+.bb{width:0;height:0;transform:translateZ(var(--z,5.3em)) rotateZ(calc(var(--rz) * -1)) rotateX(calc(var(--rx) * -1))}
+.bb img{position:absolute;bottom:0;display:block;transform-origin:50% 100%;cursor:pointer;filter:drop-shadow(0 .4em .6em rgba(40,5,15,.45));animation:drop .75s cubic-bezier(.3,0,.5,1) both}
+@keyframes drop{0%{transform:translateY(-95em) rotate(var(--r,-8deg));opacity:0}18%{opacity:1}62%{transform:translateY(0) scale(1.06,.9)}80%{transform:translateY(-3.2em) scale(.98,1.03)}100%{transform:none}}
+.bb.out img{animation:lift .4s ease-in both}
+@keyframes lift{to{transform:translateY(-70em) rotate(8deg);opacity:0}}
+.ish{width:30em;height:20em;margin:-10em 0 0 -15em;border-radius:50%;background:radial-gradient(closest-side,rgba(60,5,25,.7),rgba(60,5,25,0));transform:translateZ(5.15em);animation:shin .75s both}
+@keyframes shin{0%,40%{opacity:0;transform:translateZ(5.15em) scale(1.6)}100%{opacity:1}}
+.closed .bb img{transition:transform .65s .05s,opacity .22s .62s;transform:translateY(4em) scale(.72);opacity:0;animation:none}
+.closed .ish{opacity:0;transition:opacity .4s;animation:none}
+.closed .lidg{transform:translateZ(27em);opacity:1}
+.closed #rig{transform:translateY(-4em) rotateX(64deg) rotateZ(-33deg) scale(.96)}
+#bow{--z:39.4em}
+#bow svg{position:absolute;left:-23em;bottom:-9em;width:46em;height:30em;overflow:visible;transform:scale(0);transform-origin:50% 70%;transition:transform .5s cubic-bezier(.3,1.7,.5,1)}
+.bowed #bow svg{transform:scale(1)}
+#tag{position:absolute;left:max(4%,calc(50% - 270px));top:7%;width:150px;padding:20px 14px 14px;background:#fffaf3;color:#3a211b;border-radius:6px 6px 10px 10px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.45);transform-origin:50% -30px;transform:rotate(-70deg) scale(.4);opacity:0;transition:transform .8s cubic-bezier(.3,1.5,.5,1),opacity .3s;z-index:3;pointer-events:none}
+#tag:before{content:"";position:absolute;left:50%;top:7px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--bg);box-shadow:0 0 0 2px var(--gold)}
+#tag:after{content:"";position:absolute;left:50%;top:-34px;width:1px;height:42px;background:var(--gold);transform:rotate(14deg);transform-origin:bottom}
+#tag small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#9a4a2e}
+#tag b{display:block;font:italic 400 20px/1.15 Georgia,serif;margin:3px 0 5px;overflow-wrap:anywhere}
+#tag p{font:13px/1.3 Georgia,serif;overflow-wrap:anywhere}
+#tag i{display:block;margin-top:8px;font:normal 8px system-ui;letter-spacing:.24em;text-transform:uppercase;opacity:.5}
+.tagged #tag{transform:rotate(-5deg);opacity:1}
+.sp{position:absolute;left:50%;top:52%;width:6px;height:6px;border-radius:50%;background:#fbe7a8;box-shadow:0 0 8px #f3d58a;opacity:0;pointer-events:none;z-index:2}
+.tagged .sp{animation:sp 1.1s ease-out both}
+@keyframes sp{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.3)}}
+#empty{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:12px;opacity:.6;transition:opacity .3s;pointer-events:none}
+#panel{flex:none;padding:10px 0 6px;transition:opacity .3s}
+#tiers{padding:0 18px}
+#nudge{font-size:13px;text-align:center;min-height:18px}#nudge b{color:var(--gold);font-weight:600}
+.trk{position:relative;height:4px;border-radius:4px;background:rgba(255,255,255,.14);margin:10px 4px 22px}
+.trk i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:linear-gradient(90deg,#a87624,#f3d58a);width:0;transition:width .5s cubic-bezier(.3,.8,.3,1)}
+.trk span{position:absolute;top:-5px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#4a2a22;border:2px solid rgba(255,255,255,.22);transition:.3s}
+.trk span.on{background:var(--gold);border-color:#fbe7a8;box-shadow:0 0 10px rgba(243,213,138,.7)}
+.trk span em{position:absolute;top:16px;left:50%;transform:translateX(-50%);font:normal 10px system-ui;white-space:nowrap;opacity:.65}
+.trk span.on em{opacity:1;color:var(--gold)}
+#cats{display:flex;gap:8px;padding:2px 18px 10px;overflow-x:auto;scrollbar-width:none}#cats::-webkit-scrollbar,#tray::-webkit-scrollbar{display:none}
+#cats button{flex:none;border:1px solid rgba(255,255,255,.2);background:none;border-radius:20px;padding:6px 13px;font-size:12px;cursor:pointer}
+#cats button.on{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+#tray{display:flex;gap:10px;padding:2px 18px 8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+.cd{flex:none;width:112px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(170deg,#4a2a22,#30191400);background-color:#301914;border-radius:14px;padding:8px 8px 9px;text-align:left;cursor:pointer;position:relative;scroll-snap-align:start;transition:border-color .2s,transform .15s}
+.cd:active{transform:scale(.96)}
+.cd img{display:block;width:100%;height:74px;object-fit:contain;margin-bottom:6px}
+.cd b{display:block;font-size:11.5px;font-weight:500;line-height:1.25;height:29px;overflow:hidden}
+.cd span{font-size:12px;color:var(--gold)}
+.cd u{position:absolute;right:7px;top:7px;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.12);text-decoration:none;font-size:15px;line-height:21px;text-align:center}
+.cd.in{border-color:var(--gold)}.cd.in u{background:var(--gold);color:var(--bg);font-size:12px}
+.cd.no{animation:no .3s}@keyframes no{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+#bar{flex:none;display:flex;align-items:center;gap:12px;padding:10px 18px calc(12px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.1)}
+#sum{flex:1;font-size:12px;opacity:.9;line-height:1.35}#sum b{display:block;font-size:17px;font-weight:600}#sum s{opacity:.5;font-weight:400;font-size:13px;margin-right:6px}
+.cta{border:0;border-radius:30px;padding:13px 22px;background:linear-gradient(100deg,#c9993f,#f3d58a);color:#2a1510;font-weight:600;font-size:15px;cursor:pointer;transition:opacity .2s,transform .15s}
+.cta:disabled{opacity:.35}.cta:active{transform:scale(.97)}
+.ov{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;background:rgba(15,6,4,.55);opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.on{opacity:1;pointer-events:auto}
+.sh{width:min(100%,460px);background:#fffaf3;color:#3a211b;border-radius:22px 22px 0 0;padding:22px 20px calc(20px + env(safe-area-inset-bottom));transform:translateY(40px);transition:transform .35s cubic-bezier(.3,.8,.3,1)}
+.ov.on .sh{transform:none}
+.sh h3{font:italic 400 24px Georgia,serif;margin-bottom:4px}.sh>p{font-size:13px;opacity:.7;margin-bottom:14px}
+.sh label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin:10px 0 5px}
+.sh input{width:100%;border:1px solid #e2cfc2;border-radius:12px;padding:12px 14px;font-size:16px;background:#fff;outline:none}.sh input:focus{border-color:#c9993f}
+.row{display:flex;gap:10px;margin-top:18px}.row button{flex:1}
+.gh{border:1px solid #d9c3b4;background:none;border-radius:30px;padding:13px;font-size:15px;cursor:pointer;color:#3a211b}
+#done{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;transform:translateY(105%);transition:transform .55s cubic-bezier(.3,.8,.3,1)}
+#done.on{transform:none}
+#done .sh{transform:none;box-shadow:0 -10px 40px rgba(0,0,0,.4);max-height:58vh;overflow:auto}
+#list{font-size:14px;margin:8px 0}#list div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed #e6d5c8}
+#list .t{border:0;font-weight:600;font-size:16px;padding-top:9px}#list .d{color:#2e7d43;border:0}
+.wa{display:block;text-align:center;background:#25a244;color:#fff;text-decoration:none;padding:14px;border-radius:30px;font-size:15px;font-weight:600;margin-top:12px}
+.lnk{display:block;width:100%;background:none;border:0;margin-top:10px;font-size:13px;color:#9a4a2e;text-decoration:underline;cursor:pointer}
+#toast{position:fixed;left:50%;bottom:150px;transform:translateX(-50%) translateY(10px);background:#fffaf3;color:#3a211b;padding:9px 16px;border-radius:20px;font-size:13px;opacity:0;transition:.3s;z-index:30;pointer-events:none;white-space:nowrap}
+#toast.on{opacity:1;transform:translateX(-50%)}
+.closed~#panel,.closed~#bar{opacity:0;pointer-events:none}
+.closed h1,.closed .sub,.closed #empty,.has h1,.has .sub{opacity:0}
+.sealed .satin,.sealed .rim,.sealed #its,.sealed #shs,.sealed .floor{display:none}
+@media(min-width:900px){#app{display:grid;grid-template-columns:1fr 430px;grid-template-rows:auto 1fr auto}.top{grid-column:1/3}#stage{grid-column:1;grid-row:2/4}#panel{grid-column:2;grid-row:2;overflow-y:auto;padding-top:24px}#bar{grid-column:2;grid-row:3}#tray{flex-wrap:wrap;overflow:visible}.cd{width:calc(33.3% - 7px)}#done{left:auto;right:max(0px,calc(50% - 550px));width:430px}#done .sh{max-height:80vh}#toast{bottom:90px}}
+@media(prefers-reduced-motion:reduce){.bb img{animation-duration:.01s}}
+</style></head><body>
+<div id="app">
+<div class="top"><a href="../../">Tejori</a><small>Preview · gift box</small></div>
+<div id="stage">
+ <h1>Pack your own gift box</h1><div class="sub">Tap a piece to drop it in</div>
+ <div id="scene"><div id="rig">
+  <div class="gsh"></div>
+  <div class="box">
+   <div class="base" style="inset:0"><div class="floor"></div>
+    <div class="wb vel"></div><div class="wl vel"><div class="rb h"></div></div><div class="wr vel"></div><div class="wf vel"><div class="rb v"></div></div>
+    <div class="satin"></div><div id="shs" style="inset:0"></div><div class="rim"></div>
+   </div>
+   <div id="its" style="inset:0"></div>
+   <div class="lidg">
+    <div class="wb vel"></div><div class="wl vel"><div class="rb h"></div></div><div class="wr vel"></div><div class="wf vel"><div class="rb v"></div></div>
+    <div class="lidtop"><div class="foil">Tejori</div><div class="rb h"></div><div class="rb v w"></div></div>
+   </div>
+   <div class="bb" id="bow" style="left:50em;top:52em"><svg viewBox="0 0 230 150"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbe7a8"/><stop offset=".5" stop-color="#d2a044"/><stop offset="1" stop-color="#a87624"/></linearGradient><linearGradient id="g2" x1="1" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fbe7a8"/><stop offset=".5" stop-color="#d2a044"/><stop offset="1" stop-color="#a87624"/></linearGradient></defs>
+    <path d="M108 92 L70 146 L88 140 L96 150 L118 100Z" fill="#b8862f"/><path d="M122 92 L160 146 L142 140 L134 150 L112 100Z" fill="#c9993f"/>
+    <path d="M112 78 C80 20 20 10 8 44 C-2 76 50 104 112 86Z" fill="url(#g)"/><path d="M104 76 C80 44 44 36 34 52 C28 66 62 82 104 80Z" fill="#8a5f1c" opacity=".55"/>
+    <path d="M118 78 C150 20 210 10 222 44 C232 76 180 104 118 86Z" fill="url(#g2)"/><path d="M126 76 C150 44 186 36 196 52 C202 66 168 82 126 80Z" fill="#8a5f1c" opacity=".55"/>
+    <rect x="100" y="66" width="30" height="30" rx="9" fill="#e6bf6a" stroke="#a87624" stroke-width="2"/></svg></div>
+  </div>
+ </div></div>
+ <div id="tag"><small>For</small><b id="tn"></b><p id="tm"></p><i>Packed at Tejori</i></div>
+ <div id="sps"></div>
+ <div id="empty">Your box is empty</div>
+ <div id="done"><div class="sh"><h3>Your gift box is ready</h3><div id="list"></div>
+  <a class="wa" id="wa" target="_blank" rel="noopener">Send this box on WhatsApp</a>
+  <button class="lnk" id="edit">Open the box and change pieces</button></div></div>
+</div>
+<div id="panel">
+ <div id="tiers"><div id="nudge"></div><div class="trk"><i id="fill"></i><span style="left:60%"><em>3 · 5% off</em></span><span style="left:80%"><em>4 · 8%</em></span><span style="left:100%"><em>5 · 10%</em></span></div></div>
+ <div id="cats"></div><div id="tray"></div>
+</div>
+<div id="bar"><div id="sum"></div><button class="cta" id="wrap" disabled>Wrap it up</button></div>
+</div>
+<div class="ov" id="ov"><div class="sh"><h3>Add a gift tag</h3><p>We'll write it by hand and tie it to the box.</p>
+ <label for="fn">Who is it for?</label><input id="fn" maxlength="24" placeholder="Nani" autocomplete="off">
+ <label for="fm">Your message (optional)</label><input id="fm" maxlength="60" placeholder="Happy Diwali, with love" autocomplete="off">
+ <div class="row"><button class="gh" id="skip">Skip the tag</button><button class="cta" id="go">Wrap my box</button></div></div></div>
+<div id="toast"></div>
+<script>
+const P=[["Ganesh Ji Shank with Box",1499,"p",13,314,187],["Siddhivinayak Ganesh",1299,"p",6,193,360],["Ashtlakshmi Kalash",1399,"p",9,225,264],["Peacock Platter",1100,"s",20,360,283],["Peacock Tea Light Holder",1499,"d",7,273,359],["Peacock Showpiece",1499,"h",10,360,351],["Golden Kamadhenu",1599,"h",10,360,297],["Kamadhenu Small",699,"h",10,294,305],["Kamadhenu Cow",1399,"h",10,340,360],["Lakshmi Charan",599,"p",8,301,293],["Asthlakshmi Yantra",999,"p",7,360,280],["Emerald Red & Green Elephant",1499,"h",10,360,340],["Tilak Set",450,"p",12,360,196],["Gold Plated Lakshmi Ganesh",1299,"p",14,360,208],["Rajat Airavat",899,"h",9,360,322],["Ram Ji Shank with Box",1999,"p",6,157,332],["Silver Plated Lakshmi Ganesh Set",999,"p",12,336,258],["Camel Mishri Holder",1999,"s",15,360,303],["Peacock Mishri & Elaichi Holder",1999,"s",12,302,360],["Swan Shaped Mishri Holder",1999,"s",14,360,265],["Elephant Mishri Holder",1999,"s",14,360,348],["Swastik Diya",399,"d",14,284,192],["Ekta Kamal Diya with Box",1199,"d",10,309,360],["Silver Plated Diya with Box",699,"d",9,222,275],["Silver Plated Shubh Labh",699,"p",9,172,360],["Swastik Puja Thali Set",2999,"p",22,293,347],["Silver Plated Bottle & Glasses Set",1199,"s",18,278,360],["Silver Plated Lota (Big)",999,"p",12,265,360],["Silver Plated Lota (Small)",399,"p",8,230,233],["Silver Plated Peacock Decorative Box",799,"s",15,310,360],["Silver Plated Urli with Rose Quartz",3999,"s",18,360,219],["Silver Plated Bell with Rudraksh",699,"p",7,130,360],["Silver Plated Bell & Diya Set",850,"p",16,298,360],["Silver Plated Lota with Box",550,"p",10,246,360],["Antique Rose Photo Frame",750,"s",15,273,360],["Twin Photo Frame",1500,"s",24,360,258],["Wine Glass Set",1999,"s",20,218,360]];
+const BD=[[3,5],[4,8],[5,10]],MAX=5,WA="919518635419";
+const SLOT=[[50,32],[21,36],[79,36],[35,76],[66,78]];
+const CATS=[["all","All"],["p","Puja"],["h","Home décor"],["s","Serve & gift"],["d","Diyas"]];
+const $=id=>document.getElementById(id),inr=n=>"₹"+n.toLocaleString("en-IN"),stage=$("stage"),rig=$("rig");
+let slots=Array(MAX).fill(null),cat="all",tagName="",tagMsg="";
+const count=()=>slots.filter(x=>x!==null).length;
+function fit(){const r=stage.getBoundingClientRect();rig.style.fontSize=Math.max(1.2,Math.min(r.width/150,r.height/112,5.2))+"px"}
+function dims(i,front){const p=P[i];let w=23+p[3]*.9,h=w*p[5]/p[4];const mx=front?42:54,mn=30;if(h>mx){w*=mx/h;h=mx}if(w>46){h*=46/w;w=46}if(h<mn){const k=Math.min(mn/h,46/w);w*=k;h*=k}if(front){w*=.92;h*=.92}return[w,h]}
+function tray(){$("tray").innerHTML=P.map((p,i)=>cat=="all"||p[2]==cat?`<button class="cd${slots.includes(i)?" in":""}" data-i="${i}" aria-pressed="${slots.includes(i)}"><u>${slots.includes(i)?"✓":"+"}</u><img loading="lazy" src="p/${i}.webp" alt=""><b>${p[0]}</b><span>${inr(p[1])}</span></button>`:"").join("")}
+function calc(){const it=slots.filter(x=>x!==null),sub=it.reduce((a,i)=>a+P[i][1],0);let pct=0;BD.forEach(([n,d])=>{if(it.length>=n)pct=d});const off=Math.round(sub*pct/100);return{it,sub,pct,off,tot:sub-off}}
+function ui(){const c=calc(),n=c.it.length;
+ $("fill").style.width=n/MAX*100+"%";document.querySelectorAll(".trk span").forEach((s,k)=>s.classList.toggle("on",n>=BD[k][0]));
+ $("nudge").innerHTML=n==0?"Pick up to 5 pieces. <b>3 or more</b> unlock a bundle discount.":n<3?`Add <b>${3-n} more</b> for 5% off`:n==3?"<b>5% off unlocked.</b> Add 1 more for 8%":n==4?"<b>8% off unlocked.</b> Add 1 more for 10%":"<b>10% off unlocked.</b> Your box is full";
+ $("sum").innerHTML=n?`${n} piece${n>1?"s":""}${c.pct?` · ${c.pct}% off`:""}<b>${c.off?`<s>${inr(c.sub)}</s>`:""}${inr(c.tot)}</b>`:"No pieces yet<b>₹0</b>";
+ $("wrap").disabled=!n;stage.classList.toggle("has",n>0);$("empty").style.opacity=n?0:.6;
+ document.querySelectorAll(".cd").forEach(b=>{const on=slots.includes(+b.dataset.i);b.classList.toggle("in",on);b.setAttribute("aria-pressed",on);b.firstChild.textContent=on?"✓":"+"})}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1800)}
+function add(i){const s=slots.indexOf(null);if(s<0)return false;slots[s]=i;const[x,y]=SLOT[s],[w,h]=dims(i,s>2);
+ const b=document.createElement("div");b.className="bb";b.id="it"+s;b.style.cssText=`left:${x}em;top:${y}em`;
+ b.innerHTML=`<img src="p/${i}.webp" alt="${P[i][0]}" style="width:${w}em;height:${h}em;left:${-w/2}em;--r:${(s%2?1:-1)*(6+s*2)}deg">`;
+ b.firstChild.onclick=()=>{if(!stage.classList.contains("closed"))rem(i)};$("its").appendChild(b);
+ const sh=document.createElement("div");sh.className="ish";sh.id="sh"+s;sh.style.cssText=`left:${x}em;top:${y}em;width:${w*1.05}em;margin-left:${-w*.525}em`;$("shs").appendChild(sh);
+ gtag("event","giftbox_add",{item:P[i][0]});return true}
+function rem(i){const s=slots.indexOf(i);if(s<0)return;slots[s]=null;const b=$("it"+s),sh=$("sh"+s);b.id="";sh.remove();b.classList.add("out");setTimeout(()=>b.remove(),420);ui()}
+$("tray").onclick=e=>{const b=e.target.closest(".cd");if(!b)return;const i=+b.dataset.i;
+ if(slots.includes(i))rem(i);else if(!add(i)){b.classList.remove("no");void b.offsetWidth;b.classList.add("no");toast("Your box is full. Tap a piece to take it out.")}ui()};
+$("cats").innerHTML=CATS.map(c=>`<button data-c="${c[0]}"${c[0]=="all"?' class="on"':""}>${c[1]}</button>`).join("");
+$("cats").onclick=e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.c;document.querySelectorAll("#cats button").forEach(x=>x.classList.toggle("on",x==b));tray();$("tray").scrollLeft=0};
+$("wrap").onclick=()=>{$("ov").classList.add("on")};
+$("ov").onclick=e=>{if(e.target==$("ov"))$("ov").classList.remove("on")};
+$("skip").onclick=()=>wrap("","");$("go").onclick=()=>wrap($("fn").value.trim(),$("fm").value.trim());
+let T=[];const later=(f,ms)=>T.push(setTimeout(f,ms));
+function wrap(n,m){tagName=n;tagMsg=m;$("ov").classList.remove("on");document.activeElement&&document.activeElement.blur();
+ const c=calc();$("tn").textContent=n||"Someone special";$("tm").textContent=m;
+ $("list").innerHTML=c.it.map(i=>`<div><span>${P[i][0]}</span><span>${inr(P[i][1])}</span></div>`).join("")+(c.off?`<div class="d"><span>Bundle discount (${c.pct}%)</span><span>−${inr(c.off)}</span></div>`:"")+`<div class="t"><span>Total</span><span>${inr(c.tot)}</span></div>`;
+ let t="Hi Tejori! I packed a gift box on your website:\n"+c.it.map((i,k)=>`${k+1}. ${P[i][0]} – ${inr(P[i][1])}`).join("\n")+(c.off?`\nSubtotal: ${inr(c.sub)}\nBundle discount (${c.pct}%): −${inr(c.off)}`:"")+`\nTotal: ${inr(c.tot)}`;
+ if(n||m)t+=`\n\nGift tag\nFor: ${n||"-"}`+(m?`\nMessage: ${m}`:"");
+ $("wa").href="https://wa.me/"+WA+"?text="+encodeURIComponent(t);
+ T.forEach(clearTimeout);T=[];stage.classList.add("closed");
+ later(()=>stage.classList.add("sealed","tied"),1000);later(()=>stage.classList.add("bowed"),1500);
+ later(()=>stage.classList.add("tagged"),1900);later(()=>$("done").classList.add("on"),2700);
+ gtag("event","giftbox_wrap",{pieces:c.it.length,value:c.tot})}
+$("edit").onclick=()=>{T.forEach(clearTimeout);T=[];$("done").classList.remove("on");stage.classList.remove("tagged","bowed","tied","sealed");later(()=>stage.classList.remove("closed"),250)};
+$("wa").onclick=()=>gtag("event","whatsapp_click",{page:"v2-gift"});
+$("sps").innerHTML=Array.from({length:16},(_,k)=>{const a=k/16*6.283,d=70+Math.random()*90;return`<i class="sp" style="--x:${Math.cos(a)*d}px;--y:${Math.sin(a)*d-30}px;animation-delay:${Math.random()*.25}s"></i>`}).join("");
+tray();ui();fit();new ResizeObserver(fit).observe(stage);
+</script></body></html>
