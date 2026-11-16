@@ -1078,9 +1078,9 @@ const SCN=[
  {n:[62,65,67,69,72,74],iv:()=>rr(1.5,2.4),v:"bell",g:.085,ly:{},dr:.05},
  {n:[62,64,67,69,71,74,76,79,81],iv:()=>[.7,.7,1.4,.7,2.1][stp%5],v:"pluck",g:.085,ly:{},dr:.04},
  {n:[57,62,64,66,69,71,74],iv:()=>[.75,.75,1.5,.75,2.25][stp%5],v:"flute",g:.1,ly:{sea:.34},dr:.045},
- {n:[74,77,81,82,85,86,89],iv:()=>[.5,.5,1,.5,1.5][stp%5],v:"box",g:.09,ly:{},dr:.04},
+ {n:[62,65,69,70,74,77],iv:()=>[.8,.8,1.6,.8,2.4][stp%5],v:"box",g:.085,ly:{},dr:.04},
  {n:[38,41,45,50],iv:()=>rr(1.8,2.6),v:"flute",g:.07,ly:{},dr:.075},
- {n:[74,78,81,83,86,90,93],iv:()=>rr(.4,.95),v:"bell",g:.08,ly:{},dr:.05}];
+ {n:[62,66,69,71,74,78,81],iv:()=>rr(.6,1.2),v:"bell",g:.085,ly:{},dr:.05}];
 function noise(brown){const sr=AX.sampleRate,len=sr*4,b=AX.createBuffer(1,len,sr),d=b.getChannelData(0);let l=0;
  for(let i=0;i<len;i++){const w=Math.random()*2-1;if(brown){l=(l+.02*w)/1.02;d[i]=l*3.2}else d[i]=w}
  const fd=Math.floor(sr*.2);for(let i=0;i<fd;i++){const k=i/fd;d[len-fd+i]=d[len-fd+i]*(1-k)+d[i]*k}
@@ -1088,7 +1088,7 @@ function noise(brown){const sr=AX.sampleRate,len=sr*4,b=AX.createBuffer(1,len,sr
 const gn=v=>{const g=AX.createGain();g.gain.value=v;return g},fl=(t,f,q)=>{const n=AX.createBiquadFilter();n.type=t;n.frequency.value=f;n.Q.value=q||.7;return n};
 const lfo=(f,dp,tg)=>{const o=AX.createOscillator(),g=gn(dp);o.frequency.value=f;o.connect(g);g.connect(tg);o.start()};
 function initS(){AX=new(window.AudioContext||window.webkitAudioContext)();MX=gn(0);const cp=AX.createDynamicsCompressor();MX.connect(cp);cp.connect(AX.destination);
- BUS=gn(1);BUS.connect(MX);const dl=AX.createDelay(1),fb=gn(.22),lp=fl("lowpass",2200),wet=gn(.28);dl.delayTime.value=.31;BUS.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(MX);
+ BUS=gn(1);const mel=fl("lowpass",3200,.5);BUS.connect(mel);mel.connect(MX);const dl=AX.createDelay(1),fb=gn(.22),lp=fl("lowpass",2200),wet=gn(.28);dl.delayTime.value=.31;BUS.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(MX);
  /* ocean swells, map scene only: waves that surge and fall back, not a steady stream */
  LY.sea=gn(0);const s1=fl("lowpass",520),sw=gn(.5);noise(1).connect(s1);s1.connect(sw);sw.connect(LY.sea);lfo(.12,.5,sw.gain);lfo(.12,260,s1.frequency);
  const s2=fl("bandpass",2400,.7),s3=gn(.035);noise(0).connect(s2);s2.connect(s3);s3.connect(LY.sea);lfo(.12,.035,s3.gain);LY.sea.connect(MX);
@@ -1101,8 +1101,8 @@ function tone(t,q,ty,v,a,d,bend){const o=AX.createOscillator(),g=AX.createGain()
  env(g,t,v,a,d);o.connect(g);g.connect(BUS);o.start(t);o.stop(t+a+d+.05);return o}
 const VO={
  pluck:(t,q,v)=>{tone(t,q,"triangle",v,.006,1.8);tone(t,q*2,"sine",v*.25,.005,.8)},
- bell:(t,q,v)=>{tone(t,q,"sine",v,.006,2.6);tone(t,q*2.76,"sine",v*.22,.004,1.3);tone(t,q*5.4,"sine",v*.07,.003,.6)},
- box:(t,q,v)=>{tone(t,q,"sine",v,.003,1.1);tone(t,q*3,"sine",v*.18,.002,.35);tone(t,q*.5,"sine",v*.3,.004,.9)},
+ bell:(t,q,v)=>{tone(t,q,"sine",v,.008,2.4);tone(t,q*2,"sine",v*.2,.006,1.2);tone(t,q*3,"sine",v*.05,.004,.5)},
+ box:(t,q,v)=>{tone(t,q,"triangle",v,.004,1.2);tone(t,q*2,"sine",v*.15,.003,.5)},
  flute:(t,q,v)=>{tone(t,q,"sine",v,.28,1.5);tone(t,q*2,"sine",v*.12,.3,1.1)}};
 function ting(t,v){tone(t,2093,"sine",v,.002,.28);tone(t,3136,"sine",v*.5,.002,.18);tone(t,5270,"sine",v*.2,.001,.08)}
 function anvil(t,v){[[1180,1,.34],[2710,.55,.26],[4320,.35,.17],[6150,.18,.1]].forEach(([q,k,d])=>tone(t,q,"sine",v*k,.001,d));tone(t,190,"sine",v*.6,.001,.07);
@@ -1115,7 +1115,7 @@ function hammer(now){if(!ARM)ARM=G.querySelector(".gsarm");let an=null;try{an=AR
 function thump(t,v){const o=AX.createOscillator(),g=AX.createGain();o.frequency.setValueAtTime(95,t);o.frequency.exponentialRampToValueAtTime(42,t+.25);env(g,t,v,.005,.4);o.connect(g);g.connect(MX);o.start(t);o.stop(t+.5)}
 function crackle(t,v){const s=AX.createBufferSource(),len=Math.floor(AX.sampleRate*rr(.012,.04)),b=AX.createBuffer(1,len,AX.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
  s.buffer=b;const h=fl("highpass",rr(1800,4200)),g=gn(v);s.connect(h);h.connect(g);g.connect(MX);s.start(t)}
-function church(t,v){[[146.83,1],[293.66,.6],[349.2,.35],[440,.25],[739,.12]].forEach(([q,k])=>tone(t,q,"sine",v*k,.01,4.2))}
+function church(t,v){[[146.83,1],[293.66,.5],[440,.2],[587.33,.1]].forEach(([q,k])=>tone(t,q,"sine",v*k,.012,3.6))}
 const due=(k,t,gap)=>{if(!(xT[k]>t-.01)){xT[k]=Math.max(xT[k]||0,t)+gap;return true}return false};
 function sched(){if(!sOn||!AX)return;const now=AX.currentTime,hz=now+.3,S=SCN[curS];
  if(nT<now)nT=now+.05;
@@ -1124,7 +1124,7 @@ function sched(){if(!sOn||!AX)return;const now=AX.currentTime,hz=now+.3,S=SCN[cu
   if(curS==5&&Math.random()<.4)VO.bell(nT+.12,mf(S.n[Math.min(S.n.length-1,ni+2)]),S.g*.5);
   stp++;nT+=S.iv()}
  if(curS==1)hammer(now);
- if(curS==3&&due("ch",now+.3,7.5))church(now+.3,.085);
+ if(curS==3&&due("ch",now+.3,9))church(now+.3,.06);
  if(curS==4&&due("th",now+.1,1.2))thump(now+.1,.14);
  if(curS==2&&due("bl",now+.2,rr(6,9))){VO.bell(now+.2,880,.05);VO.bell(now+.9,880,.04)}}
 function setScene(i){if(i==curS&&setScene.ok)return;setScene.ok=1;curS=i;if(!AX)return;const t=AX.currentTime,S=SCN[i];
