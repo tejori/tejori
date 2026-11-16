@@ -850,6 +850,11 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
 .gsHint b{display:block;width:1px;height:34px;margin:12px auto 0;background:linear-gradient(#f3c89b,rgba(243,200,155,0));animation:gsDn 1.8s ease-in-out infinite;transform-origin:top}
 #gsX{position:absolute;z-index:6;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,243,226,.35);background:rgba(20,12,8,.5);color:#fff3e2;font:300 26px/1 Jost,system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:.25s}
 #gsX:hover{background:rgba(160,79,28,.9)}
+#gsA{position:absolute;z-index:6;top:calc(env(safe-area-inset-top,0px) + 14px);right:68px;height:44px;padding:0 15px 0 12px;border-radius:40px;border:1px solid rgba(255,243,226,.35);background:rgba(20,12,8,.5);color:#fff3e2;font:500 11px/1 Jost,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;gap:7px;transition:.25s}
+#gsA svg{width:19px;height:19px}#gsA .w{display:none}#gsA.on .w{display:inline}#gsA.on .x{display:none}
+#gsA:not(.on){animation:gsPu 2.2s ease-in-out infinite}
+#gs.cream #gsA{background:rgba(255,252,247,.85);color:#3B2A20;border-color:rgba(160,79,28,.3)}
+@keyframes gsPu{0%,100%{box-shadow:0 0 0 0 rgba(243,200,155,.0)}50%{box-shadow:0 0 0 7px rgba(243,200,155,.22)}}
 #gs.cream #gsX{background:rgba(255,252,247,.85);color:#3B2A20;border-color:rgba(160,79,28,.3)}
 #gsB{position:absolute;z-index:6;top:0;left:0;height:3px;width:100%;background:#d98a4e;transform-origin:left;transform:scaleX(0)}
 /* reveal scene */
@@ -883,7 +888,7 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
 @keyframes gsWv{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
 @keyframes gsDn{0%{transform:scaleY(0);opacity:0}40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1) translateY(14px);opacity:0}}
 @keyframes gsTw{0%,100%{transform:scale(.3) rotate(0);opacity:0}50%{transform:scale(1) rotate(45deg);opacity:1}}
-@media(prefers-reduced-motion:reduce){.gsfl,.gsln,.gsarm,.gssn,.gssp,.gswv,.gsRs,.gsHint b,#gsT .fl{animation:none}}
+@media(prefers-reduced-motion:reduce){.gsfl,.gsln,.gsarm,.gssn,.gssp,.gswv,.gsRs,.gsHint b,#gsT .fl,#gsA{animation:none!important}}
 </style>
 <button id="gsT" aria-haspopup="dialog" aria-controls="gs"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="fl" d="M12 3c2 2.6 2.4 4.4 1.3 5.8-.7.9-1.9.9-2.6 0C9.6 7.400 10 5.600 12 3z" fill="#ffd9a0"/><path d="M4 12.500c.5 4 3.800 5.500 8 5.500s7.500-1.500 8-5.500z" fill="currentColor"/><path d="M9.500 21h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Know the story of German silver</span></button>
 <div id="gs" role="dialog" aria-modal="true" aria-label="The story of German silver" aria-hidden="true">
@@ -901,6 +906,7 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
    <div class="gsp lt" data-r="0.8,2"><p class="gsMu" lang="hi">जो दिखता है वही बिकता है</p><button class="gsBt" id="gsShop">Shop the collection</button><button class="gsBt o" id="gsAgain">Read it again</button></div>
   </div>
   <div id="gsB"></div>
+  <button id="gsA" aria-pressed="false" aria-label="Story sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><g class="w"><path d="M15.500 9a4 4 0 0 1 0 6"/><path d="M18 6.500a7.500 7.500 0 0 1 0 11"/></g><g class="x"><path d="M16 9.500l5 5M21 9.500l-5 5"/></g></svg><span>Sound</span></button>
   <button id="gsX" aria-label="Close the story">×</button>
  </div></div></div>
 </div>
@@ -1065,6 +1071,68 @@ function updP(t){const k=r(t,.08,.34),o=r(t,.72,.9),f=e(r(t,.14,.86));
 function updR(t){el("gsRg").style.opacity=(1-e(r(t,0,.3))).toFixed(2);
  const k=e(r(t,.1,.36));el("gsRp").style.opacity=k.toFixed(2);el("gsRp").style.transform="translate(-50%,-50%) scale("+(.8+k*.2-r(t,.78,.9)*.08).toFixed(3)+")"}
 
+/* ---------- story sound: synthesised in the browser, no audio files ---------- */
+let AX=null,MX=null,BUS=null,LY={},DR=null,sOn=false,sPref=null,curS=0,tmr=0,nT=0,xT={},ni=3,stp=0;
+const mf=m=>440*Math.pow(2,(m-69)/12),rr=(a,b)=>a+Math.random()*(b-a);
+const SCN=[
+ {n:[62,65,67,69,72,74],iv:()=>rr(1.5,2.4),v:"bell",g:.07,ly:{sea:0,wind:0,fire:.02},dr:.05},
+ {n:[62,64,67,69,71,74,76,79,81],iv:()=>[.34,.34,.68,.34,.34,1.02][stp%6],v:"pluck",g:.15,ly:{sea:0,wind:0,fire:.07},dr:.04},
+ {n:[57,62,64,66,69,71,74],iv:()=>[.75,.75,1.5,.75,2.25][stp%5],v:"flute",g:.08,ly:{sea:.3,wind:.03,fire:0},dr:.045},
+ {n:[74,77,81,82,85,86,89],iv:()=>[.5,.5,1,.5,1.5][stp%5],v:"box",g:.075,ly:{sea:0,wind:.11,fire:0},dr:.04},
+ {n:[38,41,45,50],iv:()=>rr(1.8,2.6),v:"flute",g:.07,ly:{sea:0,wind:0,fire:.32},dr:.075},
+ {n:[74,78,81,83,86,90,93],iv:()=>rr(.4,.95),v:"bell",g:.08,ly:{sea:0,wind:0,fire:0},dr:.05}];
+function noise(brown){const sr=AX.sampleRate,len=sr*4,b=AX.createBuffer(1,len,sr),d=b.getChannelData(0);let l=0;
+ for(let i=0;i<len;i++){const w=Math.random()*2-1;if(brown){l=(l+.02*w)/1.02;d[i]=l*3.2}else d[i]=w}
+ const fd=Math.floor(sr*.2);for(let i=0;i<fd;i++){const k=i/fd;d[len-fd+i]=d[len-fd+i]*(1-k)+d[i]*k}
+ const s=AX.createBufferSource();s.buffer=b;s.loop=true;s.start(0,Math.random()*2);return s}
+const gn=v=>{const g=AX.createGain();g.gain.value=v;return g},fl=(t,f,q)=>{const n=AX.createBiquadFilter();n.type=t;n.frequency.value=f;n.Q.value=q||.7;return n};
+const lfo=(f,dp,tg)=>{const o=AX.createOscillator(),g=gn(dp);o.frequency.value=f;o.connect(g);g.connect(tg);o.start()};
+function initS(){AX=new(window.AudioContext||window.webkitAudioContext)();MX=gn(0);const cp=AX.createDynamicsCompressor();MX.connect(cp);cp.connect(AX.destination);
+ BUS=gn(1);BUS.connect(MX);const dl=AX.createDelay(1),fb=gn(.4),lp=fl("lowpass",2200),wet=gn(.5);dl.delayTime.value=.31;BUS.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(MX);
+ /* sea: slow swelling waves */
+ LY.sea=gn(0);const s1=fl("lowpass",620),sw=gn(.55);noise(1).connect(s1);s1.connect(sw);sw.connect(LY.sea);lfo(.11,.42,sw.gain);lfo(.07,220,s1.frequency);
+ const s2=fl("bandpass",1900,.8),s3=gn(.05);noise(0).connect(s2);s2.connect(s3);s3.connect(LY.sea);lfo(.11,.045,s3.gain);LY.sea.connect(MX);
+ /* wind */
+ LY.wind=gn(0);const w1=fl("bandpass",520,1.6),w2=gn(.6);noise(0).connect(w1);w1.connect(w2);w2.connect(LY.wind);lfo(.09,260,w1.frequency);lfo(.14,.3,w2.gain);LY.wind.connect(MX);
+ /* fire */
+ LY.fire=gn(0);const f1=fl("lowpass",460),f2=gn(.8);noise(1).connect(f1);f1.connect(f2);f2.connect(LY.fire);lfo(.6,.2,f2.gain);LY.fire.connect(MX);
+ /* drone */
+ DR=gn(0);const dlp=fl("lowpass",240);[[73.42,"sawtooth",.5],[73.9,"sawtooth",.4],[110,"sine",.5],[146.83,"sine",.22]].forEach(([q,ty,v])=>{const o=AX.createOscillator(),g=gn(v);o.type=ty;o.frequency.value=q;o.connect(g);g.connect(dlp);o.start()});
+ dlp.connect(DR);DR.connect(MX);lfo(.05,.012,DR.gain)}
+function env(g,t,v,a,d){g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+a+d)}
+function tone(t,q,ty,v,a,d,bend){const o=AX.createOscillator(),g=AX.createGain();o.type=ty;
+ if(bend){o.frequency.setValueAtTime(q*bend,t);o.frequency.exponentialRampToValueAtTime(q,t+.08)}else o.frequency.setValueAtTime(q,t);
+ env(g,t,v,a,d);o.connect(g);g.connect(BUS);o.start(t);o.stop(t+a+d+.05);return o}
+const VO={
+ pluck:(t,q,v)=>{tone(t,q,"triangle",v,.004,1.5,.966);tone(t,q*2.003,"sine",v*.32,.003,.7,.966);tone(t,q*3.01,"sine",v*.1,.002,.3)},
+ bell:(t,q,v)=>{tone(t,q,"sine",v,.006,2.6);tone(t,q*2.76,"sine",v*.22,.004,1.3);tone(t,q*5.4,"sine",v*.07,.003,.6)},
+ box:(t,q,v)=>{tone(t,q,"sine",v,.003,1.1);tone(t,q*3,"sine",v*.18,.002,.35);tone(t,q*.5,"sine",v*.3,.004,.9)},
+ flute:(t,q,v)=>{const o=tone(t,q,"sine",v,.28,1.5);lfo(5,q*.006,o.frequency);tone(t,q*2,"sine",v*.12,.3,1.1)}};
+function ting(t,v){tone(t,2093,"sine",v,.002,.28);tone(t,3136,"sine",v*.5,.002,.18);tone(t,5270,"sine",v*.2,.001,.08)}
+function thump(t,v){const o=AX.createOscillator(),g=AX.createGain();o.frequency.setValueAtTime(95,t);o.frequency.exponentialRampToValueAtTime(42,t+.25);env(g,t,v,.005,.4);o.connect(g);g.connect(MX);o.start(t);o.stop(t+.5)}
+function crackle(t,v){const s=AX.createBufferSource(),len=Math.floor(AX.sampleRate*rr(.012,.04)),b=AX.createBuffer(1,len,AX.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+ s.buffer=b;const h=fl("highpass",rr(1800,4200)),g=gn(v);s.connect(h);h.connect(g);g.connect(MX);s.start(t)}
+function church(t,v){[[146.83,1],[293.66,.6],[349.2,.35],[440,.25],[739,.12]].forEach(([q,k])=>tone(t,q,"sine",v*k,.01,4.2))}
+const due=(k,t,gap)=>{if(!(xT[k]>t-.01)){xT[k]=Math.max(xT[k]||0,t)+gap;return true}return false};
+function sched(){if(!sOn||!AX)return;const now=AX.currentTime,hz=now+.3,S=SCN[curS];
+ if(nT<now)nT=now+.05;
+ while(nT<hz){const d=[-2,-1,-1,1,1,2][Math.floor(Math.random()*6)];ni=Math.max(0,Math.min(S.n.length-1,ni+d));if(ni>=S.n.length)ni=S.n.length-1;
+  VO[S.v](nT,mf(S.n[ni]),S.g*rr(.75,1));if(curS==1&&Math.random()<.3)VO.pluck(nT+.17,mf(S.n[Math.max(0,ni-2)]),S.g*.5);
+  if(curS==5&&Math.random()<.4)VO.bell(nT+.12,mf(S.n[Math.min(S.n.length-1,ni+2)]),S.g*.5);
+  stp++;nT+=S.iv()}
+ if(curS==1){if(due("tg",now+.1,2.2))ting(xT.tg-2.2+.1,.035);if(due("ck",now+.1,rr(.2,.7)))crackle(now+.1,rr(.02,.05))}
+ if(curS==3&&due("ch",now+.3,7.5))church(now+.3,.085);
+ if(curS==4){if(due("th",now+.1,.86))thump(now+.1,.2);if(due("ck",now+.1,rr(.07,.28)))crackle(now+.1,rr(.03,.09));if(due("tg",now+.1,1.72))ting(now+.5,.03)}
+ if(curS==2&&due("bl",now+.2,rr(5,8))){ting(now+.2,.02);ting(now+.75,.016)}}
+function setScene(i){if(i==curS&&setScene.ok)return;setScene.ok=1;curS=i;if(!AX)return;const t=AX.currentTime,S=SCN[i];
+ for(const k in LY)LY[k].gain.setTargetAtTime(S.ly[k]||0,t,.7);DR.gain.setTargetAtTime(S.dr,t,.9);ni=Math.min(ni,S.n.length-1)}
+function paintS(){const b=el("gsA");b.classList.toggle("on",sOn);b.setAttribute("aria-pressed",sOn);b.title=sOn?"Turn story sound off":"Turn story sound on"}
+function startS(){try{if(!AX)initS();AX.resume();sOn=true;setScene.ok=0;setScene(curS);MX.gain.cancelScheduledValues(AX.currentTime);MX.gain.setTargetAtTime(1,AX.currentTime,.5);
+  nT=AX.currentTime+.4;xT={};clearInterval(tmr);tmr=setInterval(sched,110)}catch(_){sOn=false}paintS()}
+function stopS(){sOn=false;clearInterval(tmr);try{MX.gain.cancelScheduledValues(AX.currentTime);MX.gain.setTargetAtTime(0,AX.currentTime,.18);const a=AX;setTimeout(()=>{if(!sOn)a.suspend()},900)}catch(_){}paintS()}
+el("gsA").onclick=()=>{sPref=!sOn;sPref?startS():stopS()};
+document.addEventListener("visibilitychange",()=>{if(!AX)return;if(document.hidden)AX.suspend();else if(sOn)AX.resume()});
+G.__a={get ax(){return AX},get mx(){return MX}};
 const DEF=[["h",1,artH,updH],["c",1.7,artC,updC],["m",1.4,artM,updM],["b",1.7,artB,updB],["p",1.5,artP,updP],["r",2,null,updR]];
 const TOT=DEF.reduce((a,d)=>a+d[1],0);let SN=null,built=false,open=false,raf=0,done=false,piece=-1;
 function build(){if(built)return;built=true;K.style.height=(TOT*88+100)+"vh";
@@ -1078,21 +1146,22 @@ function build(){if(built)return;built=true;K.style.height=(TOT*88+100)+"vh";
    el("gsPi").src=rf.cut||rf.img;el("gsPi").alt=p[0];el("gsGo").textContent="See this piece · "+(/\//.test(String(p[1]))?"from ":"")+fm(String(p[1]).split(" / ")[0])}
   else el("gsGo").style.display="none"}catch(_){el("gsGo").style.display="none"}}
 function upd(){raf=0;if(!open)return;const max=SC.scrollHeight-SC.clientHeight,p=max>0?c(SC.scrollTop/max):0;
- el("gsB").style.transform="scaleX("+p.toFixed(4)+")";let acc=0,cream=false;
+ el("gsB").style.transform="scaleX("+p.toFixed(4)+")";let acc=0,cream=false,top=0,topO=0;
  SN.forEach((s,i)=>{const a=acc/TOT,b=(acc+s.w)/TOT;acc+=s.w;const t=(p-a)/(b-a),f=.1/s.w;
   let o=i==0?1:c((t+f)/(2*f));if(i<SN.length-1)o=Math.min(o,c((1+f-t)/(2*f)));
   if(o<=0){if(s.v!==0){s.n.style.visibility="hidden";s.n.style.opacity=0;s.v=0}return}
-  s.v=1;s.n.style.visibility="visible";s.n.style.opacity=o.toFixed(3);const tt=c(t);s.u(tt);
+  if(o>=topO){topO=o;top=i}s.v=1;s.n.style.visibility="visible";s.n.style.opacity=o.toFixed(3);const tt=c(t);s.u(tt);
   if(i==SN.length-1&&o>.5)cream=true;if(s.n.classList.contains("pp")&&o>.5)cream=true;
   s.caps.forEach(q=>{const co=Math.min(c((tt-q.a)/.07),c((q.b-tt)/.07));q.p.style.opacity=co.toFixed(3);q.p.style.pointerEvents=co>.6&&o>.6?"auto":"none";
    q.p.style.transform="translateX(-50%) translateY("+((1-c((tt-q.a)/.07))*14).toFixed(1)+"px)"})});
- G.classList.toggle("cream",cream);
+ G.classList.toggle("cream",cream);setScene(top);
  if(p>.97&&!done){done=true;try{gtag("event","story_finish")}catch(_){}}}
 const tick=()=>{if(!raf)raf=requestAnimationFrame(upd)};
 function show(){if(open)return;build();open=true;G.classList.add("on");G.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";SC.scrollTop=0;upd();
+ {let was=false;try{was=typeof soundOn!="undefined"&&soundOn}catch(_){}try{duck(true)}catch(_){}if(sPref==null?was:sPref)startS();else paintS()}
  try{history.pushState({gs:1},"")}catch(_){}
  setTimeout(()=>{try{SC.focus({preventScroll:true})}catch(_){}},60);try{gtag("event","story_open")}catch(_){}}
-function hide(viaPop){if(!open)return;open=false;G.classList.remove("on");G.setAttribute("aria-hidden","true");document.body.style.overflow="";
+function hide(viaPop){if(!open)return;open=false;if(sOn){sPref=true;stopS()}try{duck(false)}catch(_){}G.classList.remove("on");G.setAttribute("aria-hidden","true");document.body.style.overflow="";
  if(!viaPop){try{if(history.state&&history.state.gs)history.back()}catch(_){}}
  setTimeout(()=>{if(!open&&SN)SN.forEach(s=>{s.v=0;s.n.style.visibility="hidden";s.n.style.opacity=0})},520);
  try{TAB.focus({preventScroll:true})}catch(_){}}
