@@ -918,6 +918,7 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
    <div class="gsp lt" data-r="0.8,2"><p class="gsMu" lang="hi">जो दिखता है वही बिकता है</p><button class="gsBt" id="gsShop">Shop the collection</button><button class="gsBt o" id="gsAgain">Read it again</button></div>
   </div>
   <div id="gsB"></div>
+  <audio id="gsBgm" src="audio/german-silver-theme.mp3" preload="none" loop playsinline style="display:none"></audio>
   <button id="gsA" aria-pressed="false" aria-label="Story sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><g class="w"><path d="M15.500 9a4 4 0 0 1 0 6"/><path d="M18 6.500a7.500 7.500 0 0 1 0 11"/></g><g class="x"><path d="M16 9.500l5 5M21 9.500l-5 5"/></g></svg><span>Sound</span></button>
   <button id="gsX" aria-label="Close the story">×</button>
  </div></div></div>
@@ -1140,9 +1141,13 @@ function sched(){if(!sOn||!AX)return;const now=AX.currentTime,hz=now+.3,S=SCN[cu
 function setScene(i){if(i==curS&&setScene.ok)return;setScene.ok=1;curS=i;if(!AX)return;const t=AX.currentTime,S=SCN[i];
  for(const k in LY)LY[k].gain.setTargetAtTime(S.ly[k]||0,t,.7);DR.gain.setTargetAtTime(S.dr,t,.9);ni=Math.min(ni,S.n.length-1)}
 function paintS(){const b=el("gsA");b.classList.toggle("on",sOn);b.setAttribute("aria-pressed",sOn);b.title=sOn?"Turn story sound off":"Turn story sound on"}
+const BGM=el("gsBgm"),BGM_V=.15;let bgmFade=0;
+function bgmTo(v,ms){clearInterval(bgmFade);const t0=Date.now(),v0=BGM.volume||0;bgmFade=setInterval(()=>{const k=Math.min(1,(Date.now()-t0)/ms);BGM.volume=v0+(v-v0)*k;if(k>=1){clearInterval(bgmFade);if(v<=0)BGM.pause()}},40)}
 function startS(){try{if(!AX)initS();AX.resume();sOn=true;setScene.ok=0;setScene(curS);MX.gain.cancelScheduledValues(AX.currentTime);MX.gain.setTargetAtTime(1,AX.currentTime,.5);
-  nT=AX.currentTime+.4;xT={};clearInterval(tmr);tmr=setInterval(sched,110)}catch(_){sOn=false}paintS()}
-function stopS(){sOn=false;clearInterval(tmr);try{MX.gain.cancelScheduledValues(AX.currentTime);MX.gain.setTargetAtTime(0,AX.currentTime,.18);const a=AX;setTimeout(()=>{if(!sOn)a.suspend()},900)}catch(_){}paintS()}
+  nT=AX.currentTime+.4;xT={};clearInterval(tmr);tmr=setInterval(sched,110);
+  try{if(BGM.currentTime>2)BGM.currentTime=0;BGM.volume=0;BGM.play().catch(()=>{});bgmTo(BGM_V,900)}catch(_){}
+  }catch(_){sOn=false}paintS()}
+function stopS(){sOn=false;clearInterval(tmr);try{MX.gain.cancelScheduledValues(AX.currentTime);MX.gain.setTargetAtTime(0,AX.currentTime,.18);const a=AX;setTimeout(()=>{if(!sOn)a.suspend()},900)}catch(_){}try{bgmTo(0,500)}catch(_){}paintS()}
 el("gsA").onclick=()=>{sPref=!sOn;sPref?startS():stopS()};
 document.addEventListener("visibilitychange",()=>{if(!AX)return;if(document.hidden)AX.suspend();else if(sOn)AX.resume()});
 G.__a={get ax(){return AX},get mx(){return MX}};
@@ -1174,7 +1179,7 @@ function show(){if(open)return;build();open=true;G.classList.add("on");G.setAttr
  {let was=false;try{was=typeof soundOn!="undefined"&&soundOn}catch(_){}try{duck(true)}catch(_){}if(sPref==null?was:sPref)startS();else paintS()}
  try{history.pushState({gs:1},"")}catch(_){}
  setTimeout(()=>{try{SC.focus({preventScroll:true})}catch(_){}},60);try{gtag("event","story_open")}catch(_){}}
-function hide(viaPop){if(!open)return;open=false;if(sOn){sPref=true;stopS()}try{duck(false)}catch(_){}G.classList.remove("on");G.setAttribute("aria-hidden","true");document.body.style.overflow="";
+function hide(viaPop){if(!open)return;open=false;if(sOn){sPref=true;stopS()}else{try{BGM.pause()}catch(_){}}try{duck(false)}catch(_){}G.classList.remove("on");G.setAttribute("aria-hidden","true");document.body.style.overflow="";
  if(!viaPop){try{if(history.state&&history.state.gs)history.back()}catch(_){}}
  setTimeout(()=>{if(!open&&SN)SN.forEach(s=>{s.v=0;s.n.style.visibility="hidden";s.n.style.opacity=0})},520);
  try{TAB.focus({preventScroll:true})}catch(_){}}
