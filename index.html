@@ -1076,8 +1076,8 @@ let AX=null,MX=null,BUS=null,LY={},DR=null,sOn=false,sPref=null,curS=0,tmr=0,nT=
 const mf=m=>440*Math.pow(2,(m-69)/12),rr=(a,b)=>a+Math.random()*(b-a);
 const SCN=[
  {n:[62,65,67,69,72,74],iv:()=>rr(1.5,2.4),v:"bell",g:.085,ly:{},dr:.05},
- {n:[62,64,67,69,71,74,76,79,81],iv:()=>[.34,.34,.68,.34,.34,1.02][stp%6],v:"pluck",g:.15,ly:{},dr:.04},
- {n:[57,62,64,66,69,71,74],iv:()=>[.75,.75,1.5,.75,2.25][stp%5],v:"flute",g:.1,ly:{},dr:.045},
+ {n:[62,64,67,69,71,74,76,79,81],iv:()=>[.7,.7,1.4,.7,2.1][stp%5],v:"pluck",g:.085,ly:{},dr:.04},
+ {n:[57,62,64,66,69,71,74],iv:()=>[.75,.75,1.5,.75,2.25][stp%5],v:"flute",g:.1,ly:{sea:.34},dr:.045},
  {n:[74,77,81,82,85,86,89],iv:()=>[.5,.5,1,.5,1.5][stp%5],v:"box",g:.09,ly:{},dr:.04},
  {n:[38,41,45,50],iv:()=>rr(1.8,2.6),v:"flute",g:.07,ly:{},dr:.075},
  {n:[74,78,81,83,86,90,93],iv:()=>rr(.4,.95),v:"bell",g:.08,ly:{},dr:.05}];
@@ -1088,7 +1088,10 @@ function noise(brown){const sr=AX.sampleRate,len=sr*4,b=AX.createBuffer(1,len,sr
 const gn=v=>{const g=AX.createGain();g.gain.value=v;return g},fl=(t,f,q)=>{const n=AX.createBiquadFilter();n.type=t;n.frequency.value=f;n.Q.value=q||.7;return n};
 const lfo=(f,dp,tg)=>{const o=AX.createOscillator(),g=gn(dp);o.frequency.value=f;o.connect(g);g.connect(tg);o.start()};
 function initS(){AX=new(window.AudioContext||window.webkitAudioContext)();MX=gn(0);const cp=AX.createDynamicsCompressor();MX.connect(cp);cp.connect(AX.destination);
- BUS=gn(1);BUS.connect(MX);const dl=AX.createDelay(1),fb=gn(.4),lp=fl("lowpass",2200),wet=gn(.5);dl.delayTime.value=.31;BUS.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(MX);
+ BUS=gn(1);BUS.connect(MX);const dl=AX.createDelay(1),fb=gn(.22),lp=fl("lowpass",2200),wet=gn(.28);dl.delayTime.value=.31;BUS.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(MX);
+ /* ocean swells, map scene only: waves that surge and fall back, not a steady stream */
+ LY.sea=gn(0);const s1=fl("lowpass",520),sw=gn(.5);noise(1).connect(s1);s1.connect(sw);sw.connect(LY.sea);lfo(.12,.5,sw.gain);lfo(.12,260,s1.frequency);
+ const s2=fl("bandpass",2400,.7),s3=gn(.035);noise(0).connect(s2);s2.connect(s3);s3.connect(LY.sea);lfo(.12,.035,s3.gain);LY.sea.connect(MX);
  /* drone */
  DR=gn(0);const dlp=fl("lowpass",240);[[73.42,"sawtooth",.5],[73.9,"sawtooth",.4],[110,"sine",.5],[146.83,"sine",.22]].forEach(([q,ty,v])=>{const o=AX.createOscillator(),g=gn(v);o.type=ty;o.frequency.value=q;o.connect(g);g.connect(dlp);o.start()});
  dlp.connect(DR);DR.connect(MX);lfo(.05,.012,DR.gain)}
@@ -1097,11 +1100,18 @@ function tone(t,q,ty,v,a,d,bend){const o=AX.createOscillator(),g=AX.createGain()
  if(bend){o.frequency.setValueAtTime(q*bend,t);o.frequency.exponentialRampToValueAtTime(q,t+.08)}else o.frequency.setValueAtTime(q,t);
  env(g,t,v,a,d);o.connect(g);g.connect(BUS);o.start(t);o.stop(t+a+d+.05);return o}
 const VO={
- pluck:(t,q,v)=>{tone(t,q,"triangle",v,.004,1.5,.966);tone(t,q*2.003,"sine",v*.32,.003,.7,.966);tone(t,q*3.01,"sine",v*.1,.002,.3)},
+ pluck:(t,q,v)=>{tone(t,q,"triangle",v,.006,1.8);tone(t,q*2,"sine",v*.25,.005,.8)},
  bell:(t,q,v)=>{tone(t,q,"sine",v,.006,2.6);tone(t,q*2.76,"sine",v*.22,.004,1.3);tone(t,q*5.4,"sine",v*.07,.003,.6)},
  box:(t,q,v)=>{tone(t,q,"sine",v,.003,1.1);tone(t,q*3,"sine",v*.18,.002,.35);tone(t,q*.5,"sine",v*.3,.004,.9)},
- flute:(t,q,v)=>{const o=tone(t,q,"sine",v,.28,1.5);lfo(5,q*.006,o.frequency);tone(t,q*2,"sine",v*.12,.3,1.1)}};
+ flute:(t,q,v)=>{tone(t,q,"sine",v,.28,1.5);tone(t,q*2,"sine",v*.12,.3,1.1)}};
 function ting(t,v){tone(t,2093,"sine",v,.002,.28);tone(t,3136,"sine",v*.5,.002,.18);tone(t,5270,"sine",v*.2,.001,.08)}
+function anvil(t,v){[[1180,1,.34],[2710,.55,.26],[4320,.35,.17],[6150,.18,.1]].forEach(([q,k,d])=>tone(t,q,"sine",v*k,.001,d));tone(t,190,"sine",v*.6,.001,.07);
+ const n=Math.floor(AX.sampleRate*.008),b=AX.createBuffer(1,n,AX.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+ const s=AX.createBufferSource(),h=fl("bandpass",3400,.8),g=gn(v*.9);s.buffer=b;s.connect(h);h.connect(g);g.connect(BUS);s.start(t)}
+let ARM=null;
+function hammer(now){if(!ARM)ARM=G.querySelector(".gsarm");let an=null;try{an=ARM&&ARM.getAnimations&&ARM.getAnimations()[0]}catch(_){}
+ if(an&&an.currentTime!=null&&an.playState=="running"){const dt=(((1100-an.currentTime%2200)+2200)%2200)/1000;if(dt<.3&&now+dt>(xT.hm||0)+1){xT.hm=now+dt;anvil(now+dt,.15)}}
+ else if(due("hk",now+.1,2.2))anvil(now+.1,.15)}
 function thump(t,v){const o=AX.createOscillator(),g=AX.createGain();o.frequency.setValueAtTime(95,t);o.frequency.exponentialRampToValueAtTime(42,t+.25);env(g,t,v,.005,.4);o.connect(g);g.connect(MX);o.start(t);o.stop(t+.5)}
 function crackle(t,v){const s=AX.createBufferSource(),len=Math.floor(AX.sampleRate*rr(.012,.04)),b=AX.createBuffer(1,len,AX.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
  s.buffer=b;const h=fl("highpass",rr(1800,4200)),g=gn(v);s.connect(h);h.connect(g);g.connect(MX);s.start(t)}
@@ -1110,13 +1120,13 @@ const due=(k,t,gap)=>{if(!(xT[k]>t-.01)){xT[k]=Math.max(xT[k]||0,t)+gap;return t
 function sched(){if(!sOn||!AX)return;const now=AX.currentTime,hz=now+.3,S=SCN[curS];
  if(nT<now)nT=now+.05;
  while(nT<hz){const d=[-2,-1,-1,1,1,2][Math.floor(Math.random()*6)];ni=Math.max(0,Math.min(S.n.length-1,ni+d));if(ni>=S.n.length)ni=S.n.length-1;
-  VO[S.v](nT,mf(S.n[ni]),S.g*rr(.75,1));if(curS==1&&Math.random()<.3)VO.pluck(nT+.17,mf(S.n[Math.max(0,ni-2)]),S.g*.5);
+  VO[S.v](nT,mf(S.n[ni]),S.g*rr(.75,1));
   if(curS==5&&Math.random()<.4)VO.bell(nT+.12,mf(S.n[Math.min(S.n.length-1,ni+2)]),S.g*.5);
   stp++;nT+=S.iv()}
- if(curS==1){if(due("tg",now+.1,2.2))ting(xT.tg-2.2+.1,.035);if(due("ck",now+.1,rr(.2,.7)))crackle(now+.1,rr(.02,.05))}
+ if(curS==1)hammer(now);
  if(curS==3&&due("ch",now+.3,7.5))church(now+.3,.085);
- if(curS==4){if(due("th",now+.1,.86))thump(now+.1,.2);if(due("ck",now+.1,rr(.07,.28)))crackle(now+.1,rr(.03,.09));if(due("tg",now+.1,1.72))ting(now+.5,.03)}
- if(curS==2&&due("bl",now+.2,rr(5,8))){ting(now+.2,.02);ting(now+.75,.016)}}
+ if(curS==4&&due("th",now+.1,1.2))thump(now+.1,.14);
+ if(curS==2&&due("bl",now+.2,rr(6,9))){VO.bell(now+.2,880,.05);VO.bell(now+.9,880,.04)}}
 function setScene(i){if(i==curS&&setScene.ok)return;setScene.ok=1;curS=i;if(!AX)return;const t=AX.currentTime,S=SCN[i];
  for(const k in LY)LY[k].gain.setTargetAtTime(S.ly[k]||0,t,.7);DR.gain.setTargetAtTime(S.dr,t,.9);ni=Math.min(ni,S.n.length-1)}
 function paintS(){const b=el("gsA");b.classList.toggle("on",sOn);b.setAttribute("aria-pressed",sOn);b.title=sOn?"Turn story sound off":"Turn story sound on"}
