@@ -4,6 +4,7 @@
 <title>Tejori – German-silver gifts, puja &amp; décor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" media="print" id="fnt" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" media="print" id="gsf" onload="this.media='all'">
 <style>
 html{color-scheme:light}
 button{color:var(--ink)}
@@ -872,7 +873,7 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
 .gsBt{display:inline-block;margin-top:18px;background:var(--rust);color:#fff8ef;border:0;border-radius:40px;padding:13px 24px;font:500 13px/1.2 Jost,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.25s}
 .gsBt:hover{background:var(--rust2);transform:translateY(-1px)}
 .gsBt.o{background:transparent;color:var(--rust);border:1px solid var(--rust);margin-left:8px}
-.gsMu{font-size:clamp(30px,8vw,58px);line-height:1.3;color:#A04F1C;font-weight:600}
+.gsMu{font-family:"Tiro Devanagari Hindi",serif;font-size:clamp(32px,8vw,60px);line-height:1.5;color:#A04F1C;font-weight:400;letter-spacing:.01em}
 /* art motion */
 .gsfl{animation:gsFl 1.5s ease-in-out infinite}
 .gsln{animation:gsSw 3.6s ease-in-out infinite}
@@ -899,7 +900,18 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
   <div class="gsc" data-s="b"></div>
   <div class="gsc" data-s="p"></div>
   <div class="gsc gsR cr" data-s="r">
-   <div class="gsRb"></div><div class="gsRg" id="gsRg"></div>
+   <div class="gsRb"></div>
+   <svg class="gsRd" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%">
+    <defs><radialGradient id="gsrv" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#fff8ea" stop-opacity=".9"/><stop offset="1" stop-color="#fff8ea" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="600" cy="480" r="520" fill="url(#gsrv)"/>
+    <g fill="none" stroke="#A04F1C" stroke-width="1.2" opacity=".14"><circle cx="600" cy="480" r="300"/><circle cx="600" cy="480" r="400"/><circle cx="600" cy="480" r="500"/></g>
+    <g fill="#F588B3" opacity=".16">
+     <path d="M140,1040 C140,980 190,940 240,940 C210,900 210,840 260,810 C230,760 260,700 320,700 C300,650 340,600 400,610 C410,560 470,540 510,580 C520,900 420,1040 140,1040Z"/>
+     <path d="M1060,1060 C1060,1000 1010,960 960,960 C990,920 990,860 940,830 C970,780 940,720 880,720 C900,670 860,620 800,630 C790,580 730,560 690,600 C680,920 780,1060 1060,1060Z"/>
+    </g>
+    <g fill="#929B6E" opacity=".13"><path d="M600,1100 C520,1040 500,960 540,900 C580,960 560,1040 600,1100Z"/><path d="M600,1100 C680,1040 700,960 660,900 C620,960 640,1040 600,1100Z"/></g>
+   </svg>
+   <div class="gsRg" id="gsRg"></div>
    <div class="gsRp" id="gsRp"><img id="gsPi" alt=""><i class="gsRs" style="left:18%;top:22%"></i><i class="gsRs" style="left:78%;top:34%;animation-delay:.8s"></i><i class="gsRs" style="left:60%;top:8%;animation-delay:1.5s"></i></div>
    <p class="gsp lt" data-r="0.1,0.4">And that is how German silver was born.</p>
    <div class="gsp lt" data-r="0.45,0.74"><p>Today it gives Tejori pieces the glow of silver, without the price.</p><button class="gsBt" id="gsGo">See this piece</button></div>
