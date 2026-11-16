@@ -817,4 +817,299 @@ mtCount(false);
  lk.onclick=e=>{e.preventDefault();W=clone();I=cloneI();dirty=false;formIx=null;delIx=null;msg="";discard=false;paint();ov.classList.add("on");document.body.style.overflow="hidden"};
 })();
 
-</script></body></html>
+</script>
+<!-- GS-STORY:START (the German silver scroll story; self-contained) -->
+<style>
+#gsT{position:fixed;right:0;top:50%;z-index:55;transform:translateY(-50%);display:flex;align-items:center;gap:8px;writing-mode:vertical-rl;background:var(--rust);color:#fff8ef;border:0;border-radius:14px 0 0 14px;padding:16px 9px 14px 10px;font:500 11.5px/1 Jost,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:-6px 8px 24px rgba(110,70,40,.22);transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s,background .25s}
+#gsT span{transform:rotate(180deg)}
+#gsT svg{width:20px;height:20px;flex:none}
+#gsT:hover{background:var(--rust2);transform:translateY(-50%) translateX(-3px)}
+#gsT .fl{transform-origin:12px 9px;animation:gsFl 1.6s ease-in-out infinite}
+body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;pointer-events:none}
+@media(max-width:560px){#gsT{top:62%;font-size:10.5px;padding:14px 7px 12px 8px;letter-spacing:.12em}}
+#gs{position:fixed;inset:0;z-index:95;background:#120a07;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility 0s .5s}
+#gs.on{opacity:1;visibility:visible;transition:opacity .5s ease}
+#gs:not(.on),#gs:not(.on) *{pointer-events:none!important}
+#gsS{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#gsS::-webkit-scrollbar{display:none}
+#gsV{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+.gsc{position:absolute;inset:0;opacity:0;visibility:hidden;will-change:opacity}
+.gsc>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gsc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(rgba(14,8,6,0),rgba(14,8,6,.82) 62%,rgba(14,8,6,.92));pointer-events:none}
+.gsc.pp::after{background:linear-gradient(rgba(234,217,184,0),rgba(234,217,184,.9) 60%,#ead9b8)}
+.gsc.cr::after{display:none}
+.gsp{position:absolute;z-index:3;left:50%;bottom:max(9vh,calc(env(safe-area-inset-bottom,0px) + 48px));width:min(88vw,720px);transform:translateX(-50%);text-align:center;color:#fff3e2;font:500 clamp(23px,5.6vw,40px)/1.22 "Cormorant Garamond",serif;text-shadow:0 2px 18px rgba(0,0,0,.55);opacity:0;pointer-events:none;margin:0}
+.gsp p{margin:0}
+.gsp.lt{color:#3B2A20;text-shadow:none}
+.gsp small{display:block;margin-top:10px;font:400 clamp(12px,3.2vw,15px)/1.4 Jost,system-ui,sans-serif;letter-spacing:.04em;opacity:.85}
+.gsH{position:absolute;z-index:3;left:50%;top:max(15vh,96px);width:min(88vw,760px);transform:translateX(-50%);text-align:center;color:#fff3e2}
+.gsH i{display:block;font:500 11.5px/1 Jost,system-ui,sans-serif;font-style:normal;letter-spacing:.3em;text-transform:uppercase;color:#f3c89b;margin-bottom:18px}
+.gsH h2{font:500 clamp(31px,7.6vw,60px)/1.1 "Cormorant Garamond",serif;margin:0;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+.gsHint{position:absolute;z-index:3;left:50%;bottom:max(6vh,calc(env(safe-area-inset-bottom,0px) + 28px));transform:translateX(-50%);color:#f3c89b;font:500 11px/1 Jost,system-ui,sans-serif;letter-spacing:.3em;text-transform:uppercase;text-align:center}
+.gsHint b{display:block;width:1px;height:34px;margin:12px auto 0;background:linear-gradient(#f3c89b,rgba(243,200,155,0));animation:gsDn 1.8s ease-in-out infinite;transform-origin:top}
+#gsX{position:absolute;z-index:6;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,243,226,.35);background:rgba(20,12,8,.5);color:#fff3e2;font:300 26px/1 Jost,system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:.25s}
+#gsX:hover{background:rgba(160,79,28,.9)}
+#gs.cream #gsX{background:rgba(255,252,247,.85);color:#3B2A20;border-color:rgba(160,79,28,.3)}
+#gsB{position:absolute;z-index:6;top:0;left:0;height:3px;width:100%;background:#d98a4e;transform-origin:left;transform:scaleX(0)}
+/* reveal scene */
+.gsR{background:#FAF6EF}
+.gsRg{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#fff 0%,#ffe6b0 16%,#ffb45c 34%,#c9551c 58%,#3a160a 100%)}
+.gsRb{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 36%,#fffdf8 0%,#FAF6EF 45%,#f1e6d6 100%)}
+.gsRp{position:absolute;left:50%;top:42%;width:min(64vw,46vh,440px);aspect-ratio:1;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center}
+.gsRp::before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,136,179,.22),rgba(245,136,179,0) 65%)}
+.gsRp::after{content:"";position:absolute;left:14%;right:14%;bottom:2%;height:9%;border-radius:50%;background:radial-gradient(ellipse,rgba(110,70,40,.28),rgba(110,70,40,0) 70%)}
+.gsRp img{position:relative;z-index:1;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(110,70,40,.22))}
+.gsRs{position:absolute;z-index:2;width:16px;height:16px;background:radial-gradient(circle,#fff 0 18%,rgba(255,255,255,0) 60%);animation:gsTw 2.4s ease-in-out infinite}
+.gsRs::before,.gsRs::after{content:"";position:absolute;left:50%;top:50%;background:#fff;border-radius:2px}
+.gsRs::before{width:2px;height:26px;transform:translate(-50%,-50%)}
+.gsRs::after{width:26px;height:2px;transform:translate(-50%,-50%)}
+.gsBt{display:inline-block;margin-top:18px;background:var(--rust);color:#fff8ef;border:0;border-radius:40px;padding:13px 24px;font:500 13px/1.2 Jost,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.gsBt:hover{background:var(--rust2);transform:translateY(-1px)}
+.gsBt.o{background:transparent;color:var(--rust);border:1px solid var(--rust);margin-left:8px}
+.gsMu{font-size:clamp(30px,8vw,58px);line-height:1.3;color:#A04F1C;font-weight:600}
+/* art motion */
+.gsfl{animation:gsFl 1.5s ease-in-out infinite}
+.gsln{animation:gsSw 3.6s ease-in-out infinite}
+.gsarm{animation:gsHm 1.1s cubic-bezier(.6,0,.9,.4) infinite alternate}
+.gssn{animation:gsSn linear infinite}
+.gssp{animation:gsSp 1.3s ease-out infinite}
+.gswv{animation:gsWv 5s ease-in-out infinite alternate}
+@keyframes gsFl{0%,100%{transform:scale(1,1) skewX(0)}35%{transform:scale(.93,1.07) skewX(2.5deg)}70%{transform:scale(1.05,.95) skewX(-2deg)}}
+@keyframes gsSw{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes gsHm{from{transform:rotate(-62deg)}to{transform:rotate(14deg)}}
+@keyframes gsSn{from{transform:translate(0,-80px)}to{transform:translate(40px,1300px)}}
+@keyframes gsSp{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--x),var(--y));opacity:0}}
+@keyframes gsWv{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+@keyframes gsDn{0%{transform:scaleY(0);opacity:0}40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1) translateY(14px);opacity:0}}
+@keyframes gsTw{0%,100%{transform:scale(.3) rotate(0);opacity:0}50%{transform:scale(1) rotate(45deg);opacity:1}}
+@media(prefers-reduced-motion:reduce){.gsfl,.gsln,.gsarm,.gssn,.gssp,.gswv,.gsRs,.gsHint b,#gsT .fl{animation:none}}
+</style>
+<button id="gsT" aria-haspopup="dialog" aria-controls="gs"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="fl" d="M12 3c2 2.6 2.4 4.4 1.3 5.8-.7.9-1.9.9-2.6 0C9.6 7.400 10 5.600 12 3z" fill="#ffd9a0"/><path d="M4 12.500c.5 4 3.800 5.500 8 5.500s7.500-1.500 8-5.500z" fill="currentColor"/><path d="M9.500 21h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Know the story of German silver</span></button>
+<div id="gs" role="dialog" aria-modal="true" aria-label="The story of German silver" aria-hidden="true">
+ <div id="gsS" tabindex="-1"><div id="gsK"><div id="gsV">
+  <div class="gsc" data-s="h"></div>
+  <div class="gsc" data-s="c"></div>
+  <div class="gsc pp" data-s="m"></div>
+  <div class="gsc" data-s="b"></div>
+  <div class="gsc" data-s="p"></div>
+  <div class="gsc gsR cr" data-s="r">
+   <div class="gsRb"></div><div class="gsRg" id="gsRg"></div>
+   <div class="gsRp" id="gsRp"><img id="gsPi" alt=""><i class="gsRs" style="left:18%;top:22%"></i><i class="gsRs" style="left:78%;top:34%;animation-delay:.8s"></i><i class="gsRs" style="left:60%;top:8%;animation-delay:1.5s"></i></div>
+   <p class="gsp lt" data-r="0.1,0.4">And that is how German silver was born.</p>
+   <div class="gsp lt" data-r="0.45,0.74"><p>Today it gives Tejori pieces the glow of silver, without the price.</p><button class="gsBt" id="gsGo">See this piece</button></div>
+   <div class="gsp lt" data-r="0.8,2"><p class="gsMu" lang="hi">जो दिखता है वही बिकता है</p><button class="gsBt" id="gsShop">Shop the collection</button><button class="gsBt o" id="gsAgain">Read it again</button></div>
+  </div>
+  <div id="gsB"></div>
+  <button id="gsX" aria-label="Close the story">×</button>
+ </div></div></div>
+</div>
+<script>
+(function(){
+const el=i=>document.getElementById(i),G=el("gs"),SC=el("gsS"),K=el("gsK"),TAB=el("gsT");
+if(!G||!TAB)return;
+const c=x=>x<0?0:x>1?1:x,r=(t,a,b)=>c((t-a)/(b-a)),e=x=>x*x*(3-2*x);
+let sd=7;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+const svg=s=>'<svg viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+s+'</svg>';
+const SILV='<stop offset="0" stop-color="#8f8b84"/><stop offset=".28" stop-color="#f7f4ed"/><stop offset=".55" stop-color="#b9b5ac"/><stop offset=".8" stop-color="#f1eee6"/><stop offset="1" stop-color="#87837b"/>';
+const stars=(n,y,col)=>{let s="";for(let i=0;i<n;i++)s+=`<circle cx="${(rnd()*1500-150).toFixed(0)}" cy="${(rnd()*y).toFixed(0)}" r="${(rnd()*1.6+.6).toFixed(1)}" fill="${col}" opacity="${(rnd()*.6+.25).toFixed(2)}"/>`;return s};
+
+/* ---------- scene 1: the hook ---------- */
+function artH(){return svg(`<defs>
+<radialGradient id="gsh0" cx="50%" cy="56%" r="62%"><stop offset="0" stop-color="#5e3622"/><stop offset=".55" stop-color="#2a1810"/><stop offset="1" stop-color="#120a07"/></radialGradient>
+<radialGradient id="gsh1"><stop offset="0" stop-color="#ffd58a" stop-opacity=".95"/><stop offset=".3" stop-color="#ffb04a" stop-opacity=".38"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>
+<linearGradient id="gsh2" x1="0" x2="1">${SILV}</linearGradient>
+<linearGradient id="gsh3" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff8a1e"/><stop offset=".6" stop-color="#ffd257"/><stop offset="1" stop-color="#fff6cf"/></linearGradient></defs>
+<rect x="-200" width="1600" height="1200" fill="url(#gsh0)"/>
+<g opacity=".8"><path d="M390,800 V520 C390,400 470,350 600,310 C730,350 810,400 810,520 V800Z" fill="#190e09" stroke="#7a4526" stroke-width="3"/>
+<path d="M420,800 V528 C420,424 488,382 600,346 C712,382 780,424 780,528 V800" fill="none" stroke="#7a4526" stroke-width="1.500" opacity=".7"/>
+<circle cx="600" cy="300" r="7" fill="#7a4526"/></g>
+<path d="M-200,800 H1400 V1200 H-200Z" fill="#221108"/><rect x="-200" y="797" width="1600" height="7" fill="#8a4f2b" opacity=".55"/>
+<circle id="gshG" cx="600" cy="650" r="330" fill="url(#gsh1)"/>
+<ellipse cx="600" cy="812" rx="170" ry="16" fill="#ffb04a" opacity=".16"/>
+<g id="gshD" style="transform-origin:600px 800px">
+<ellipse cx="600" cy="796" rx="74" ry="12" fill="url(#gsh2)"/>
+<path d="M584,794 C590,768 590,756 576,742 H624 C610,756 610,768 616,794Z" fill="url(#gsh2)"/>
+<path d="M494,700 C500,742 548,756 600,756 C652,756 700,742 706,700Z" fill="url(#gsh2)"/>
+<path d="M512,716 C540,736 660,736 688,716" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/>
+<ellipse cx="600" cy="700" rx="106" ry="17" fill="#ece8df" stroke="#8a867e" stroke-width="2"/>
+<ellipse cx="600" cy="701" rx="90" ry="12" fill="#b9813a"/>
+<g class="gsfl" style="transform-origin:600px 696px"><path d="M600,596 C630,638 634,668 619,689 C610,701 590,701 581,689 C566,668 570,638 600,596Z" fill="url(#gsh3)"/><ellipse cx="600" cy="680" rx="9" ry="15" fill="#fff8dc"/></g>
+</g>`)+'<div class="gsH"><i>The story of German silver</i><h2>The metal Europe spent a hundred years trying to copy.</h2></div><div class="gsHint" id="gsHn">Scroll<b></b></div>'}
+function updH(t){const g=el("gshG");g.setAttribute("r",(330+t*260).toFixed(0));g.style.opacity=(.85+t*.15).toFixed(2);
+ el("gshD").style.transform="scale("+(1+t*.18).toFixed(3)+")";el("gsHn").style.opacity=(1-r(t,.05,.3)).toFixed(2)}
+
+/* ---------- scene 2: China ---------- */
+const roof=(cx,y,w,h)=>`M${cx-w},${y-12} Q${cx-w*.6},${y+2} ${cx-w*.34},${y-h*.6} Q${cx-w*.2},${y-h} ${cx-w*.1},${y-h} H${cx+w*.1} Q${cx+w*.2},${y-h} ${cx+w*.34},${y-h*.6} Q${cx+w*.6},${y+2} ${cx+w},${y-12} L${cx+w-10},${y+5} H${cx-w+10}Z`;
+function house(cx,base,w,h,f,win){let s=`<rect x="${cx-w*.72}" y="${base-h}" width="${w*1.44}" height="${h}" fill="${f}"/><path d="${roof(cx,base-h,w,h*.55)}" fill="${f}"/>`;
+ if(win){const n=Math.max(1,Math.round(w/26));for(let i=0;i<n;i++)s+=`<rect x="${cx-w*.5+i*(w/n)+4}" y="${base-h*.66}" width="${Math.min(13,w/n-9)}" height="${h*.3}" rx="1" fill="#ffc56b" opacity="${(.55+rnd()*.45).toFixed(2)}"/>`}return s}
+function pagoda(cx,base,f){let s="",y=base,w=92;for(let i=0;i<5;i++){const bh=i?38:56;s+=`<rect x="${cx-w*.56}" y="${y-bh}" width="${w*1.12}" height="${bh}" fill="${f}"/><rect x="${cx-7}" y="${y-bh*.7}" width="14" height="${bh*.42}" rx="2" fill="#ffc56b" opacity=".85"/>`;y-=bh;s+=`<path d="${roof(cx,y,w+22,30)}" fill="${f}"/>`;y-=27;w*=.8}
+ return s+`<path d="M${cx-4},${y} L${cx},${y-64} L${cx+4},${y}Z" fill="${f}"/><circle cx="${cx}" cy="${y-30}" r="6" fill="${f}"/>`}
+function artC(){let ln="";for(let i=1;i<6;i++){const u=i/6,x=(1-u)*(1-u)*470+2*(1-u)*u*600+u*u*668,y=(1-u)*(1-u)*585+2*(1-u)*u*690+u*u*612;
+ ln+=`<g class="gsln" style="transform-origin:${x.toFixed(0)}px ${y.toFixed(0)}px;animation-delay:${(-i*.5).toFixed(1)}s"><circle cx="${x.toFixed(0)}" cy="${(y+16).toFixed(0)}" r="26" fill="url(#gsc3)"/><line x1="${x.toFixed(0)}" y1="${y.toFixed(0)}" x2="${x.toFixed(0)}" y2="${(y+7).toFixed(0)}" stroke="#2a1820" stroke-width="2"/><ellipse cx="${x.toFixed(0)}" cy="${(y+17).toFixed(0)}" rx="8.500" ry="10.500" fill="#e2472c"/><rect x="${(x-5).toFixed(0)}" y="${(y+6).toFixed(0)}" width="10" height="3" fill="#f0b64a"/><rect x="${(x-5).toFixed(0)}" y="${(y+26).toFixed(0)}" width="10" height="3" fill="#f0b64a"/></g>`}
+ let sp="";for(let i=0;i<9;i++)sp+=`<circle class="gssp" cx="${836+rnd()*24}" cy="${742-rnd()*10}" r="${1.5+rnd()*2}" fill="#ffd27a" style="--x:${(rnd()*70-45).toFixed(0)}px;--y:${(-40-rnd()*90).toFixed(0)}px;animation-delay:${(-rnd()*1.3).toFixed(2)}s"/>`;
+ return svg(`<defs>
+<linearGradient id="gsc0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#191836"/><stop offset=".3" stop-color="#3c2a55"/><stop offset=".5" stop-color="#8b4460"/><stop offset=".62" stop-color="#d9764f"/><stop offset=".7" stop-color="#f6bd73"/></linearGradient>
+<radialGradient id="gsc1"><stop offset="0" stop-color="#fff1cf"/><stop offset=".55" stop-color="#ffd79a"/><stop offset="1" stop-color="#ffc27a" stop-opacity="0"/></radialGradient>
+<radialGradient id="gsc2"><stop offset="0" stop-color="#ffdf8f" stop-opacity=".95"/><stop offset=".4" stop-color="#ff8f3a" stop-opacity=".5"/><stop offset="1" stop-color="#ff7a2a" stop-opacity="0"/></radialGradient>
+<radialGradient id="gsc3"><stop offset="0" stop-color="#ff9a5a" stop-opacity=".6"/><stop offset="1" stop-color="#ff9a5a" stop-opacity="0"/></radialGradient>
+<linearGradient id="gsc4" x1="0" x2="1">${SILV}</linearGradient>
+<radialGradient id="gsc5"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".35" stop-color="#e8f0ff" stop-opacity=".4"/><stop offset="1" stop-color="#e8f0ff" stop-opacity="0"/></radialGradient></defs>
+<rect x="-200" width="1600" height="1200" fill="url(#gsc0)"/>${stars(70,430,"#fff")}
+<circle cx="640" cy="640" r="200" fill="url(#gsc1)" opacity=".9"/><circle cx="640" cy="640" r="84" fill="#fff0cf"/>
+<g id="gscA"><path d="M-300,800 V640 L-120,560 L10,620 L170,500 L300,590 L430,520 L560,610 L700,540 L860,480 L1000,580 L1140,510 L1290,600 L1500,540 V800Z" fill="#6a3f63" opacity=".75"/></g>
+<g id="gscB"><path d="M-300,800 V690 L-150,640 L-20,680 L120,610 L260,670 L420,640 L600,690 L760,640 L900,600 L1060,670 L1220,620 L1500,680 V800Z" fill="#40264a"/></g>
+<g id="gscT">${house(-40,770,70,70,"#2b1a36",1)}${house(130,770,54,56,"#2b1a36",1)}${house(250,770,62,84,"#2b1a36",1)}${house(350,770,44,58,"#2b1a36",1)}${pagoda(470,772,"#241530")}${house(590,770,48,54,"#2b1a36",1)}${house(960,770,66,78,"#2b1a36",1)}${house(1080,770,50,60,"#2b1a36",1)}${house(1200,770,70,90,"#2b1a36",1)}${house(1340,770,56,62,"#2b1a36",1)}</g>
+<g id="gscF"><path d="M-300,1200 V772 Q600,752 1500,772 V1200Z" fill="#170e1d"/>
+<path d="M470,585 Q600,690 668,612" fill="none" stroke="#2a1820" stroke-width="2"/>${ln}
+<g transform="translate(-70,0)"><circle cx="846" cy="730" r="150" fill="url(#gsc2)"/>
+<rect x="716" y="612" width="9" height="162" fill="#120a16"/><rect x="904" y="612" width="9" height="162" fill="#120a16"/><path d="${roof(815,618,128,44)}" fill="#120a16"/>
+<path d="M812,774 V722 Q846,700 880,722 V774Z" fill="#1c1016"/><path d="M822,774 V734 Q846,716 870,734 V774Z" fill="#ff9b3d"/><path class="gsfl" style="transform-origin:846px 772px" d="M846,728 C858,744 862,758 854,770 H838 C830,758 834,744 846,728Z" fill="#ffe08a"/>${sp}
+<path d="M752,748 h46 v8 h-13 l5,18 h-30 l5,-18 h-13Z" fill="#0c0710"/>
+<g fill="#0c0710"><circle cx="722" cy="676" r="12"/><path d="M710,690 Q722,684 734,690 L738,738 L744,774 H732 L724,744 L716,774 H704 L708,738Z"/>
+<g class="gsarm" style="transform-origin:728px 696px"><path d="M724,692 L764,700 L763,709 L723,703Z"/><rect x="756" y="686" width="22" height="13" rx="2" transform="rotate(8 767 692)"/></g></g></g></g>
+<g id="gscW" style="opacity:0"><circle cx="0" cy="0" r="130" fill="url(#gsc5)"/><path d="M-58,-6 C-54,34 -28,50 0,50 C28,50 54,34 58,-6Z" fill="url(#gsc4)"/><ellipse cx="0" cy="-6" rx="58" ry="11" fill="#f3f0e8" stroke="#8a867e" stroke-width="1.500"/><ellipse cx="0" cy="-5" rx="47" ry="7" fill="#b7b3aa"/><path d="M-30,56 h60 l-6,-8 h-48Z" fill="url(#gsc4)"/><path d="M-44,10 C-30,30 30,30 44,10" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/></g>`)
+ +'<p class="gsp" data-r="0.04,0.46">The story begins in China, centuries ago.</p><p class="gsp" data-r="0.52,2">Metalworkers there made paktong, “white copper”. It shone just like silver.</p>'}
+function updC(t){el("gscA").style.transform="translateX("+(40-t*50).toFixed(1)+"px)";el("gscB").style.transform="translateX("+(60-t*90).toFixed(1)+"px)";
+ el("gscT").style.transform="translateX("+(70-t*120).toFixed(1)+"px)";el("gscF").style.transform="translateX("+(100-t*170).toFixed(1)+"px)";
+ const k=e(r(t,.46,.78)),w=el("gscW");w.style.opacity=r(t,.44,.52).toFixed(2);
+ w.setAttribute("transform","translate("+(805-t*170-k*110).toFixed(1)+","+(742-k*230).toFixed(1)+") scale("+(.45+k*1.25).toFixed(3)+")")}
+
+/* ---------- scene 3: the map ---------- */
+function artM(){let w="";for(let i=0;i<26;i++){const x=rnd()*1400-100,y=200+rnd()*800;w+=`<path d="M${x.toFixed(0)},${y.toFixed(0)} q9,-7 18,0 t18,0" fill="none" stroke="#9c7a4c" stroke-width="1.500" opacity=".35"/>`}
+ return svg(`<defs><radialGradient id="gsm0" cx="50%" cy="46%" r="70%"><stop offset="0" stop-color="#f4e7c8"/><stop offset=".7" stop-color="#e6d2ab"/><stop offset="1" stop-color="#c9ab78"/></radialGradient>
+<mask id="gsm1"><path id="gsmK" d="M845,505 C850,580 800,650 730,660 C650,668 600,720 560,770 C530,810 480,815 455,780 C420,720 390,640 385,560 C380,500 385,450 405,412" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/></mask></defs>
+<rect x="-200" width="1600" height="1200" fill="url(#gsm0)"/><g class="gswv">${w}</g>
+<g transform="translate(600,520) scale(.9) translate(-600,-520)"><g fill="#cfae7c" stroke="#8a6238" stroke-width="2.500" stroke-linejoin="round">
+<path d="M360,300 C380,270 430,255 480,262 C520,268 540,290 536,330 C530,370 500,395 470,400 C450,420 430,410 425,395 C400,400 380,390 385,370 C360,360 350,330 360,300Z"/>
+<path d="M430,440 C470,425 530,430 560,450 C580,480 600,500 612,520 C600,560 570,600 560,650 C550,710 520,770 500,775 C480,770 470,700 465,650 C460,600 420,570 405,530 C395,490 410,455 430,440Z"/>
+<path d="M545,300 C580,260 680,240 780,250 C850,256 905,290 900,350 C898,400 880,440 860,480 C850,500 835,505 825,490 C822,520 815,570 805,600 C795,570 790,530 780,505 C750,500 730,495 715,500 C705,540 690,590 675,610 C660,590 645,540 640,500 C610,490 585,470 575,440 C560,420 545,400 548,370 C535,345 535,320 545,300Z"/>
+<path d="M300,310 C312,296 334,300 336,318 C338,338 316,352 304,340 C294,332 292,320 300,310Z"/></g>
+<g font-family="'Cormorant Garamond',serif" font-style="italic" fill="#6b4a26" text-anchor="middle"><text x="448" y="338" font-size="30">Europe</text><text x="770" y="372" font-size="34">China</text><text x="508" y="590" font-size="26">Africa</text><text x="676" y="560" font-size="20">India</text></g>
+<g transform="translate(800,790) scale(.8)" stroke="#8a6238" fill="none" stroke-width="2"><circle r="44"/><circle r="34" opacity=".5"/><path d="M0,-58 L9,0 L0,58 L-9,0Z" fill="#a04f1c" stroke="none"/><path d="M-58,0 L0,-9 L58,0 L0,9Z" fill="#cfae7c"/><text y="-64" text-anchor="middle" font-family="Jost,sans-serif" font-size="15" fill="#6b4a26" stroke="none">N</text></g>
+<path d="M845,505 C850,580 800,650 730,660 C650,668 600,720 560,770 C530,810 480,815 455,780 C420,720 390,640 385,560 C380,500 385,450 405,412" fill="none" stroke="#a04f1c" stroke-width="4.500" stroke-dasharray="3 13" stroke-linecap="round" mask="url(#gsm1)"/>
+<circle cx="845" cy="505" r="9" fill="#a04f1c"/><circle cx="845" cy="505" r="17" fill="none" stroke="#a04f1c" stroke-width="2" opacity=".5"/>
+<circle id="gsmE" cx="405" cy="412" r="9" fill="#a04f1c" opacity="0"/>
+<g id="gsmS"><g id="gsmF"><ellipse cx="0" cy="17" rx="34" ry="5" fill="#8a6238" opacity=".3"/><path d="M-30,2 H30 L22,16 H-22Z" fill="#5a3a1c"/><rect x="-1.500" y="-46" width="3" height="48" fill="#5a3a1c"/><path d="M3,-44 Q30,-26 3,-6Z" fill="#fffaf0" stroke="#8a6238" stroke-width="1.500"/><path d="M-3,-38 Q-24,-22 -3,-6Z" fill="#fffaf0" stroke="#8a6238" stroke-width="1.500"/><path d="M1.500,-46 l14,-5 l-14,-5Z" fill="#a04f1c"/></g></g></g>`)
+ +'<p class="gsp lt" data-r="0.04,0.5">Europe fell in love with it.</p><p class="gsp lt" data-r="0.55,2">It was even smuggled out on trade ships.</p>'}
+let mL=0,mP=null;
+function updM(t){if(!mP){mP=el("gsmK");mL=mP.getTotalLength();mP.style.strokeDasharray=mL}
+ const k=e(r(t,.1,.88)),d=k*mL,p=mP.getPointAtLength(d),q=mP.getPointAtLength(Math.min(mL,d+4));
+ mP.style.strokeDashoffset=(mL-d).toFixed(1);
+ el("gsmS").setAttribute("transform","translate("+p.x.toFixed(1)+","+(p.y-6+Math.sin(t*40)*2.5).toFixed(1)+") scale(1.25)");
+ el("gsmF").setAttribute("transform","scale("+(q.x<=p.x?-1:1)+",1) rotate("+(Math.sin(t*40)*3).toFixed(1)+")");
+ el("gsmE").style.opacity=r(t,.86,.92).toFixed(2)}
+
+/* ---------- scene 4: Berlin 1823 ---------- */
+let bW=[];
+function gable(x,w,h,f,step){const b=800,t=b-h;let s=`<rect x="${x}" y="${t}" width="${w}" height="${h}" fill="${f}"/>`;
+ if(step){const n=4,sw=w/(2*n);let d=`M${x},${t}`;for(let i=1;i<=n;i++)d+=` v-16 h${sw}`;for(let i=1;i<=n;i++)d+=` h${sw} v16`;s+=`<path d="${d}Z" fill="${f}"/><path d="${d}" fill="none" stroke="#eef3fb" stroke-width="5" stroke-linejoin="round"/>`}
+ else s+=`<path d="M${x-8},${t} L${x+w/2},${t-w*.48} L${x+w+8},${t}Z" fill="${f}"/><path d="M${x-8},${t} L${x+w/2},${t-w*.48} L${x+w+8},${t}" fill="none" stroke="#eef3fb" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>`;
+ const cols=Math.max(2,Math.floor(w/44)),rows=Math.max(2,Math.floor((h-50)/52));
+ for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){const th=rnd();bW.push(th);s+=`<rect class="gsbw" x="${(x+(i+.5)*(w/cols)-9).toFixed(0)}" y="${t+22+j*52}" width="18" height="28" rx="1.500" fill="#ffcf7a" opacity="0"/>`}
+ return s}
+function lamp(x){return `<circle class="gsbl" cx="${x}" cy="520" r="170" fill="url(#gsb1)" opacity="0"/><rect x="${x-4}" y="545" width="8" height="258" fill="#0a1020"/><rect x="${x-9}" y="780" width="18" height="22" fill="#0a1020"/><path d="M${x-15},545 L${x-11},500 H${x+11} L${x+15},545Z" fill="#0a1020"/><path d="M${x-10},541 L${x-7},505 H${x+7} L${x+10},541Z" fill="#ffdc8c" class="gsbg" opacity=".12"/><path d="M${x-17},500 H${x+17} L${x},482Z" fill="#0a1020"/><path d="M${x-18},500 H${x+18}" stroke="#eef3fb" stroke-width="4" stroke-linecap="round"/>`}
+function artB(){bW=[];let cols="";for(let i=0;i<6;i++)cols+=`<rect x="${452+i*56}" y="436" width="16" height="116"/>`;
+ let sn="";for(let i=0;i<46;i++){const d=6+rnd()*8;sn+=`<circle class="gssn" cx="${(rnd()*1500-150).toFixed(0)}" cy="0" r="${(1.6+rnd()*3).toFixed(1)}" fill="#fff" opacity="${(.45+rnd()*.5).toFixed(2)}" style="animation-duration:${d.toFixed(1)}s;animation-delay:${(-rnd()*d).toFixed(1)}s"/>`}
+ return svg(`<defs><linearGradient id="gsb0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1226"/><stop offset=".45" stop-color="#1b2a4d"/><stop offset=".68" stop-color="#3a4d78"/></linearGradient>
+<radialGradient id="gsb1"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".8"/><stop offset=".35" stop-color="#ffc56b" stop-opacity=".28"/><stop offset="1" stop-color="#ffc56b" stop-opacity="0"/></radialGradient>
+<clipPath id="gsb2"><rect id="gsbC" x="500" y="592" width="200" height="0"/></clipPath></defs>
+<rect x="-200" width="1600" height="1200" fill="url(#gsb0)"/>${stars(60,420,"#dfe8ff")}<circle cx="820" cy="180" r="30" fill="#eef3ff" opacity=".9"/><circle cx="831" cy="173" r="27" fill="#101a35"/>
+<g id="gsbA"><g fill="#2a3a63" transform="translate(0,-96)"><rect x="430" y="552" width="340" height="350"/>${cols}<rect x="436" y="414" width="328" height="24"/><rect x="470" y="384" width="260" height="32"/>
+<path d="M578,384 l8,-22 h8 l4,-16 l6,16 h10 l6,22Z"/><rect x="360" y="486" width="72" height="416"/><rect x="768" y="486" width="72" height="416"/><path d="M352,486 L396,462 L440,486Z"/><path d="M760,486 L804,462 L848,486Z"/>
+<g fill="none" stroke="#eef3fb" stroke-width="5" stroke-linecap="round"><path d="M438,413 H762"/><path d="M472,383 H728"/><path d="M354,485 L396,462 L438,485"/><path d="M762,485 L804,462 L846,485"/></g></g></g>
+<g id="gsbH">${gable(-140,150,300,"#101a33",1)}${gable(20,130,250,"#0e172e")}${gable(160,150,330,"#101a33",1)}${gable(318,96,230,"#0c1428")}${gable(790,96,240,"#0c1428")}${gable(894,150,320,"#101a33",1)}${gable(1052,130,260,"#0e172e")}${gable(1190,150,310,"#101a33",1)}</g>
+<path d="M-300,1200 V800 Q300,786 600,796 Q900,806 1500,790 V1200Z" fill="#dfe8f5"/><path d="M-300,1200 V850 Q600,820 1500,856 V1200Z" fill="#c6d3e8" opacity=".7"/>
+${lamp(402)}${lamp(800)}
+<g><rect x="478" y="566" width="10" height="244" fill="#241a18"/><rect x="712" y="566" width="10" height="244" fill="#241a18"/><rect x="470" y="574" width="260" height="208" rx="3" fill="#3a2a22"/><path d="M462,574 L600,548 L738,574Z" fill="#2c201c"/><path d="M462,573 L600,548 L738,573" fill="none" stroke="#eef3fb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<g clip-path="url(#gsb2)"><rect x="500" y="592" width="200" height="172" fill="#f6ead2"/><rect x="508" y="600" width="184" height="156" fill="none" stroke="#a04f1c" stroke-width="1.500"/>
+<text x="600" y="628" text-anchor="middle" font-family="Jost,sans-serif" font-size="13" letter-spacing="3" fill="#5a3a1c">PREISAUFGABE</text>
+<text x="600" y="700" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="78" fill="#a04f1c">1823</text>
+<g stroke="#5a3a1c" stroke-width="2" opacity=".55"><path d="M530,720 H640"/><path d="M530,733 H660"/><path d="M530,746 H612"/></g><circle cx="668" cy="736" r="12" fill="#b3261e"/><circle cx="668" cy="736" r="6" fill="none" stroke="#7d130e" stroke-width="1.500"/></g></g>
+<g>${sn}</g>`)
+ +'<p class="gsp" data-r="0.04,0.44">For decades, nobody in Europe could work out how to make it.</p><p class="gsp" data-r="0.5,2">So in 1823, Germany announced a prize for anyone who could.</p>'}
+let bN=null,bL=null,bG=null;
+function updB(t){if(!bN){bN=G.querySelectorAll(".gsbw");bL=G.querySelectorAll(".gsbl");bG=G.querySelectorAll(".gsbg")}
+ const k=r(t,.02,.5);bN.forEach((w,i)=>w.style.opacity=k>bW[i]*.9?(.55+bW[i]*.4).toFixed(2):0);
+ const l=e(r(t,.12,.4));bL.forEach(x=>x.style.opacity=l.toFixed(2));bG.forEach(x=>x.style.opacity=(.12+l*.88).toFixed(2));
+ el("gsbH").style.transform="translateX(0)";el("gsbA").style.transform="translateY("+(10-t*10).toFixed(1)+"px)";
+ el("gsbC").setAttribute("height",(e(r(t,.46,.66))*172).toFixed(1))}
+
+/* ---------- scene 5: the pour ---------- */
+const MT=[["Copper",470,60,"#ff8436",30],["Nickel",600,20,"#ffe7b0",15],["Zinc",730,20,"#d6ecff",15]];
+function artP(){let s="",sp="";MT.forEach((m,i)=>{const x=m[1];
+ s+=`<text x="${x}" y="318" text-anchor="middle" font-family="Jost,sans-serif" font-size="19" letter-spacing="4" fill="#f3c89b">${m[0].toUpperCase()}</text>
+<text id="gspN${i}" x="${x}" y="384" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-weight="600" font-size="62" fill="#fff3e2">0</text>
+<rect id="gspS${i}" x="${x-m[4]/2}" y="446" width="${m[4]}" height="0" rx="${m[4]/2}" fill="${m[3]}"/><rect id="gspT${i}" x="${x-m[4]/2-7}" y="446" width="${m[4]+14}" height="0" rx="${m[4]/2+7}" fill="${m[3]}" opacity=".25"/>
+<g transform="rotate(${i==0?16:i==2?-16:0} ${x} 430)"><path d="M${x-36},410 H${x+36} L${x+26},452 H${x-26}Z" fill="#1a0f0a" stroke="#4a2a18" stroke-width="2.500"/><ellipse cx="${x}" cy="411" rx="35" ry="7" fill="${m[3]}"/></g>`});
+ for(let i=0;i<14;i++)sp+=`<circle class="gssp" cx="${540+rnd()*120}" cy="${690-rnd()*10}" r="${1.5+rnd()*2.5}" fill="#ffd98a" style="--x:${(rnd()*240-120).toFixed(0)}px;--y:${(-60-rnd()*150).toFixed(0)}px;animation-delay:${(-rnd()*1.3).toFixed(2)}s"/>`;
+ return svg(`<defs><radialGradient id="gsp0" cx="50%" cy="58%" r="60%"><stop offset="0" stop-color="#7a2c0c"/><stop offset=".5" stop-color="#34140a"/><stop offset="1" stop-color="#120806"/></radialGradient>
+<radialGradient id="gsp1"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".9"/><stop offset=".4" stop-color="#ff7a2a" stop-opacity=".4"/><stop offset="1" stop-color="#ff7a2a" stop-opacity="0"/></radialGradient>
+<clipPath id="gsp2"><path d="M452,676 C458,760 520,792 600,792 C680,792 742,760 748,676Z"/></clipPath>
+<linearGradient id="gsp3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d8"/><stop offset=".3" stop-color="#ffc35a"/><stop offset="1" stop-color="#e5591a"/></linearGradient></defs>
+<rect x="-200" width="1600" height="1200" fill="url(#gsp0)"/>
+<g fill="none" stroke="#5a2a14" stroke-width="3" opacity=".5"><path d="M330,860 V470 C330,300 450,230 600,230 C750,230 870,300 870,470 V860"/><path d="M290,860 V470 C290,270 430,190 600,190 C770,190 910,270 910,470 V860" opacity=".6"/></g>
+<circle id="gspG" cx="600" cy="700" r="260" fill="url(#gsp1)" opacity=".3"/>${s}
+<path d="M-200,1200 V806 H1400 V1200Z" fill="#0d0604"/><rect x="-200" y="803" width="1600" height="6" fill="#6a3118" opacity=".6"/>
+<path d="M430,664 H770 L764,690 C756,770 690,806 600,806 C510,806 444,770 436,690Z" fill="#1c110c" stroke="#4a2a18" stroke-width="3"/>
+<g clip-path="url(#gsp2)"><rect id="gspF" x="440" y="792" width="320" height="130" fill="url(#gsp3)"/></g>
+<g id="gspK" opacity="0">${sp}</g>`)
+ +'<p class="gsp" data-r="0.04,0.5">Within a year, they had cracked it.</p><p class="gsp" data-r="0.56,2">Copper, nickel and zinc. The recipe behind the shine.</p>'}
+function updP(t){const k=r(t,.08,.34),o=r(t,.72,.9),f=e(r(t,.14,.86));
+ MT.forEach((m,i)=>{const h=(k-o)*222,y=446+o*222;[el("gspS"+i),el("gspT"+i)].forEach(x=>{x.setAttribute("y",y.toFixed(1));x.setAttribute("height",Math.max(0,h).toFixed(1))});
+  el("gspN"+i).textContent=Math.round(m[2]*r(t,.14,.74))});
+ el("gspF").setAttribute("y",(792-f*112).toFixed(1));el("gspG").style.opacity=(.3+f*.7).toFixed(2);el("gspG").setAttribute("r",(260+f*120).toFixed(0));
+ el("gspK").style.opacity=(k>.9&&o<.95?1:0)}
+
+/* ---------- scene 6: the reveal ---------- */
+function updR(t){el("gsRg").style.opacity=(1-e(r(t,0,.3))).toFixed(2);
+ const k=e(r(t,.1,.36));el("gsRp").style.opacity=k.toFixed(2);el("gsRp").style.transform="translate(-50%,-50%) scale("+(.8+k*.2-r(t,.78,.9)*.08).toFixed(3)+")"}
+
+const DEF=[["h",1,artH,updH],["c",1.7,artC,updC],["m",1.4,artM,updM],["b",1.7,artB,updB],["p",1.5,artP,updP],["r",2,null,updR]];
+const TOT=DEF.reduce((a,d)=>a+d[1],0);let SN=null,built=false,open=false,raf=0,done=false,piece=-1;
+function build(){if(built)return;built=true;K.style.height=(TOT*88+100)+"vh";
+ SN=DEF.map(d=>{const n=G.querySelector('.gsc[data-s="'+d[0]+'"]');if(d[2])n.innerHTML=d[2]();
+  return{n,w:d[1],u:d[3],caps:[...n.querySelectorAll(".gsp")].map(p=>({p,a:+p.dataset.r.split(",")[0],b:+p.dataset.r.split(",")[1]}))}});
+ /* the piece the story ends on */
+ try{const want=["Silver Plated Lota (Big)","Silver Plated Lota with Box","Silver Plated Diya with Box"];
+  for(const nm of want){piece=PL.findIndex(o=>o.name==nm);if(piece>=0)break}
+  if(piece<0)piece=PL.findIndex(o=>/silver/i.test(o.name));if(piece<0&&P.length)piece=0;
+  if(piece>=0){const p=P[piece],rf=ref(p);
+   el("gsPi").src=rf.cut||rf.img;el("gsPi").alt=p[0];el("gsGo").textContent="See this piece · "+fm(p[1])}
+  else el("gsGo").style.display="none"}catch(_){el("gsGo").style.display="none"}}
+function upd(){raf=0;if(!open)return;const max=SC.scrollHeight-SC.clientHeight,p=max>0?c(SC.scrollTop/max):0;
+ el("gsB").style.transform="scaleX("+p.toFixed(4)+")";let acc=0,cream=false;
+ SN.forEach((s,i)=>{const a=acc/TOT,b=(acc+s.w)/TOT;acc+=s.w;const t=(p-a)/(b-a),f=.1/s.w;
+  let o=i==0?1:c((t+f)/(2*f));if(i<SN.length-1)o=Math.min(o,c((1+f-t)/(2*f)));
+  if(o<=0){if(s.v!==0){s.n.style.visibility="hidden";s.n.style.opacity=0;s.v=0}return}
+  s.v=1;s.n.style.visibility="visible";s.n.style.opacity=o.toFixed(3);const tt=c(t);s.u(tt);
+  if(i==SN.length-1&&o>.5)cream=true;if(s.n.classList.contains("pp")&&o>.5)cream=true;
+  s.caps.forEach(q=>{const co=Math.min(c((tt-q.a)/.07),c((q.b-tt)/.07));q.p.style.opacity=co.toFixed(3);q.p.style.pointerEvents=co>.6&&o>.6?"auto":"none";
+   q.p.style.transform="translateX(-50%) translateY("+((1-c((tt-q.a)/.07))*14).toFixed(1)+"px)"})});
+ G.classList.toggle("cream",cream);
+ if(p>.97&&!done){done=true;try{gtag("event","story_finish")}catch(_){}}}
+const tick=()=>{if(!raf)raf=requestAnimationFrame(upd)};
+function show(){if(open)return;build();open=true;G.classList.add("on");G.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";SC.scrollTop=0;upd();
+ try{history.pushState({gs:1},"")}catch(_){}
+ setTimeout(()=>{try{SC.focus({preventScroll:true})}catch(_){}},60);try{gtag("event","story_open")}catch(_){}}
+function hide(viaPop){if(!open)return;open=false;G.classList.remove("on");G.setAttribute("aria-hidden","true");document.body.style.overflow="";
+ if(!viaPop){try{if(history.state&&history.state.gs)history.back()}catch(_){}}
+ setTimeout(()=>{if(!open&&SN)SN.forEach(s=>{s.v=0;s.n.style.visibility="hidden";s.n.style.opacity=0})},520);
+ try{TAB.focus({preventScroll:true})}catch(_){}}
+TAB.onclick=show;el("gsX").onclick=()=>hide();
+SC.addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);
+addEventListener("popstate",()=>{if(open)hide(true)});
+addEventListener("keydown",ev=>{if(open&&ev.key=="Escape")hide()});
+el("gsAgain").onclick=()=>{SC.scrollTo({top:0,behavior:"smooth"})};
+function goto(sel,card){hide();setTimeout(()=>{try{
+  if(card!=null&&card>=0){if(cur!="all"){cur="all";document.querySelectorAll("#chips .chip").forEach(x=>x.classList.toggle("on",x.dataset.c=="all"));render()}
+   const n=document.querySelector('#grid .card[data-i="'+card+'"]');if(n){n.classList.add("v");scrollTo({top:n.getBoundingClientRect().top+scrollY-innerHeight*.28,behavior:"smooth"});
+    setTimeout(()=>{n.classList.remove("hit");void n.offsetWidth;n.classList.add("hit")},600);return}}
+  const s=document.querySelector(sel);if(s)s.scrollIntoView({behavior:"smooth"})}catch(_){location.hash=sel}},80)}
+el("gsGo").onclick=()=>{try{gtag("event","story_piece_click")}catch(_){}goto("#collection",piece)};
+el("gsShop").onclick=()=>goto("#collection",null);
+/* tuck the tab away while the room designer fills the screen, so it never sits over the canvas */
+try{const rm=document.getElementById("room");if(rm){let q=0;const ck=()=>{q=0;const b=rm.getBoundingClientRect();TAB.classList.toggle("off",b.top<innerHeight*.35&&b.bottom>innerHeight*.65)};addEventListener("scroll",()=>{if(!q)q=requestAnimationFrame(ck)},{passive:true})}}catch(_){}
+})();
+</script>
+<!-- GS-STORY:END -->
+</body></html>
