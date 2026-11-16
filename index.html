@@ -1128,12 +1128,8 @@ function crackle(t,v){const s=AX.createBufferSource(),len=Math.floor(AX.sampleRa
  s.buffer=b;const h=fl("highpass",rr(1800,4200)),g=gn(v);s.connect(h);h.connect(g);g.connect(MX);s.start(t)}
 function church(t,v){[[146.83,1],[293.66,.5],[440,.2],[587.33,.1]].forEach(([q,k])=>tone(t,q,"sine",v*k,.012,3.6))}
 const due=(k,t,gap)=>{if(!(xT[k]>t-.01)){xT[k]=Math.max(xT[k]||0,t)+gap;return true}return false};
-function sched(){if(!sOn||!AX)return;const now=AX.currentTime,hz=now+.3,S=SCN[curS];
- if(nT<now)nT=now+.05;
- while(nT<hz){const d=[-2,-1,-1,1,1,2][Math.floor(Math.random()*6)];ni=Math.max(0,Math.min(S.n.length-1,ni+d));if(ni>=S.n.length)ni=S.n.length-1;
-  VO[S.v](nT,mf(S.n[ni]),S.g*rr(.75,1));
-  if(curS==5&&Math.random()<.4)VO.bell(nT+.12,mf(S.n[Math.min(S.n.length-1,ni+2)]),S.g*.5);
-  stp++;nT+=S.iv()}
+/* only scene-tied sound effects now, no generated background melody - that's the uploaded track's job */
+function sched(){if(!sOn||!AX)return;const now=AX.currentTime;
  if(curS==1)hammer(now);
  if(curS==3&&due("ch",now+.3,9))church(now+.3,.06);
  if(curS==4&&due("th",now+.1,1.2))thump(now+.1,.14);
