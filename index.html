@@ -502,7 +502,7 @@ const P0=[
 ["Silver Plated Bell with Rudraksh",699,"15cm · 200g · Silver","p",31],
 ["Silver Plated Bell & Diya Set",850,"Silver · Velvet box packaging","p",32],
 ["Silver Plated Lota with Box",550,"Silver · Velvet box packaging","p",33],
-["Antique Rose Photo Frame",750,"8in · Silver","s",34],
+["Antique Rose Photo Frame",799,"8in · Silver","s",34],
 ["Twin Photo Frame",1500,"8 & 6in · Silver","s",35],
 ["Wine Glass Set",1999,"Silver & Golden · Velvet box packaging","s",36],
 ["Rose Pink Puja Thali Set","4599 / 4999","Rose Pink & Silver · Without box / With box","t",37]];
@@ -868,7 +868,7 @@ body.lock #gsT,#gsT.off{transform:translateY(-50%) translateX(110%);opacity:0;po
 .gsRg{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#fff 0%,#fff1cf 16%,#ffc56b 34%,#c9793a 58%,rgba(201,121,58,0) 100%)}
 .gsRb{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 36%,#fffdf8 0%,#FAF6EF 45%,#f1e6d6 100%)}
 .gsRp{position:absolute;left:50%;top:42%;width:min(70vw,44vh,360px);aspect-ratio:1;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center}
-.gsRp::before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(255,197,107,.26),rgba(255,197,107,0) 65%)}
+.gsRp::before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(255,165,70,.34),rgba(255,165,70,0) 65%)}
 .gsRp::after{content:"";position:absolute;left:14%;right:14%;bottom:2%;height:9%;border-radius:50%;background:radial-gradient(ellipse,rgba(110,70,40,.28),rgba(110,70,40,0) 70%)}
 .gsRp img{position:relative;z-index:1;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(110,70,40,.22))}
 .gsRs{position:absolute;z-index:2;width:16px;height:16px;background:radial-gradient(circle,#fff 0 18%,rgba(255,255,255,0) 60%);animation:gsTw 2.4s ease-in-out infinite}
@@ -1162,7 +1162,7 @@ function build(){if(built)return;built=true;K.style.height=(TOT*88+100)+"vh";
   for(const nm of want){piece=PL.findIndex(o=>o.name==nm);if(piece>=0)break}
   if(piece<0)piece=PL.findIndex(o=>/silver/i.test(o.name));if(piece<0&&P.length)piece=0;
   if(piece>=0){const p=P[piece],rf=ref(p);
-   el("gsPi").src=rf.cut||rf.img;el("gsPi").alt=p[0];el("gsGo").textContent="See this piece · "+(/\//.test(String(p[1]))?"from ":"")+fm(String(p[1]).split(" / ")[0])}
+   el("gsPi").src=rf.cut||rf.img;el("gsPi").alt=p[0];el("gsGo").textContent="See this piece"}
   else el("gsGo").style.display="none"}catch(_){el("gsGo").style.display="none"}}
 function upd(){raf=0;if(!open)return;const max=SC.scrollHeight-SC.clientHeight,p=max>0?c(SC.scrollTop/max):0;
  el("gsB").style.transform="scaleX("+p.toFixed(4)+")";let acc=0,cream=false,top=0,topO=0;
