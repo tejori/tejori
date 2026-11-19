@@ -1158,7 +1158,7 @@ function build(){if(built)return;built=true;K.style.height=(TOT*88+100)+"vh";
  SN=DEF.map(d=>{const n=G.querySelector('.gsc[data-s="'+d[0]+'"]');if(d[2])n.innerHTML=d[2]();
   return{n,w:d[1],u:d[3],caps:[...n.querySelectorAll(".gsp")].map(p=>({p,a:+p.dataset.r.split(",")[0],b:+p.dataset.r.split(",")[1]}))}});
  /* the piece the story ends on */
- try{const want=["Peacock Mishri & Elaichi Holder","Silver Plated Peacock Decorative Box","Silver Plated Lota (Big)","Silver Plated Lota with Box","Silver Plated Diya with Box"];
+ try{const want=["Antique Rose Photo Frame","Peacock Mishri & Elaichi Holder","Silver Plated Peacock Decorative Box","Silver Plated Lota (Big)","Silver Plated Lota with Box","Silver Plated Diya with Box"];
   for(const nm of want){piece=PL.findIndex(o=>o.name==nm);if(piece>=0)break}
   if(piece<0)piece=PL.findIndex(o=>/silver/i.test(o.name));if(piece<0&&P.length)piece=0;
   if(piece>=0){const p=P[piece],rf=ref(p);
