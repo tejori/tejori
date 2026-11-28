@@ -541,7 +541,8 @@ const hr=$("hero");
 hr.addEventListener("pointermove",e=>{if(e.pointerType=="touch")return;const r=hr.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
   hr.style.setProperty("--sx",(x*100).toFixed(1)+"%");hr.style.setProperty("--sy",(y*100).toFixed(1)+"%");hr.style.setProperty("--px",((x-.5)*2).toFixed(3));hr.style.setProperty("--py",((y-.5)*2).toFixed(3))});
 /* collection */
-window.op=i=>{const p=P[i];
+let MI=-1;
+window.op=i=>{MI=+i;const p=P[i];
   const pidx=typeof p[4]==="number"?p[4]:null;
   const imgs=[ref(p).img];
   if(pidx!==null&&EX[pidx])EX[pidx].forEach(x=>imgs.push(x));
@@ -573,6 +574,11 @@ $("chips").innerHTML=C.map(c=>`<button class="chip${c[0]=="all"?" on":""}" data-
 $("chips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cur=b.dataset.c;document.querySelectorAll("#chips .chip").forEach(x=>x.classList.toggle("on",x==b));render()};
 $("md").onclick=e=>{if(e.target.id=="md"||e.target.className=="x")$("md").classList.remove("on")};
 addEventListener("keydown",e=>{if(e.key=="Escape")$("md").classList.remove("on")});
+/* ← → keys move to the previous / next product while a product is open */
+addEventListener("keydown",e=>{if(!$("md").classList.contains("on"))return;if(e.key!="ArrowRight"&&e.key!="ArrowLeft")return;
+  if(e.target&&e.target.closest&&e.target.closest("input,textarea,select,[contenteditable]"))return;
+  const L=P.map((p,k)=>k).filter(k=>cur=="all"||P[k][3]==cur),j=L.indexOf(MI);if(j<0||L.length<2)return;
+  e.preventDefault();op(L[(j+(e.key=="ArrowRight"?1:-1)+L.length)%L.length])});
 render();
 /* gift finder */
 const Q=[["Who’s it for?",["Parents & elders","Friends & colleagues","A newlywed couple","My own home"]],["Budget per piece?",["Under ₹800","₹800 – ₹1,500","₹1,500 – ₹3,000","₹3,000+"]],["What feels right?",["Puja & devotion","Lights & diyas","Showpieces & décor","Serving & gifting"]]];
